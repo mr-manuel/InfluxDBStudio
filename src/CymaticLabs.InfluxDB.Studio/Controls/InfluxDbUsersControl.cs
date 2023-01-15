@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CymaticLabs.InfluxDB.Data;
+using CymaticLabs.InfluxDB.Studio.Dialogs;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CymaticLabs.InfluxDB.Data;
-using CymaticLabs.InfluxDB.Studio.Dialogs;
 
 namespace CymaticLabs.InfluxDB.Studio.Controls
 {
@@ -302,7 +302,7 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
                 if (user == null) return;
 
                 // Confirm drop
-                if (MessageBox.Show(string.Format("Drop user: {0}?", user.Name), "Confirm User Drop", 
+                if (MessageBox.Show(string.Format("Drop user: {0}?", user.Name), "Confirm User Drop",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
                 {
                     return;
@@ -464,7 +464,8 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
                         new ListViewItem(new string[] {
                                 user.Name,
                                 user.IsAdmin ? CheckMark : null
-                    }) { Tag = user });
+                    })
+                    { Tag = user });
                 }
             }
 
@@ -518,7 +519,7 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
                     }
                 }
             }
-            
+
             // Restore any selected privilege
             if (SelectedPrivilegeGrant != null)
             {

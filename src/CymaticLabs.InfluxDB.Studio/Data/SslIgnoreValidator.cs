@@ -21,7 +21,7 @@ namespace CymaticLabs.InfluxDB.Data
         public static bool AllowUntrusted
         {
             get { return allowUntrusted; }
-            
+
             set
             {
                 allowUntrusted = value;

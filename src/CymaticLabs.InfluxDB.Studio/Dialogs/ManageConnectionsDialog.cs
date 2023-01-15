@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CymaticLabs.InfluxDB.Data;
+using System;
 using System.Windows.Forms;
-using CymaticLabs.InfluxDB.Data;
 
 namespace CymaticLabs.InfluxDB.Studio.Dialogs
 {
@@ -148,7 +148,7 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
 
                 // Bind the dialog to the connection values
                 connectionDialog.BindToConnection(connection);
-                
+
                 // Open dialog
                 if (connectionDialog.ShowDialog() == DialogResult.OK)
                 {

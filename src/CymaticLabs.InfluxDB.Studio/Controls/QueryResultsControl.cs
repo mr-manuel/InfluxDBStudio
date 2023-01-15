@@ -1,11 +1,11 @@
-﻿using System;
+﻿using CymaticLabs.InfluxDB.Data;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using Newtonsoft.Json;
-using CymaticLabs.InfluxDB.Data;
 
 namespace CymaticLabs.InfluxDB.Studio.Controls
 {
@@ -157,9 +157,17 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
                 {
                     // Get the value
                     var v = r[x];
-
+                    string displayCell = null;
+                    if (v is DateTime dateTime)
+                    {
+                        displayCell = dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                    }
+                    else
+                    {
+                        displayCell = v?.ToString();
+                    }
                     // Attach the column values as subitems
-                    var li2 = new ListViewItem.ListViewSubItem(li, v != null ? v.ToString() : null);
+                    var li2 = new ListViewItem.ListViewSubItem(li, displayCell);
                     li2.Tag = r;
                     li.SubItems.Add(li2);
                 }
@@ -303,5 +311,53 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
         }
 
         #endregion Methods
+
+        private void listView_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (sender != listView) return;
+
+            if (e.Control)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.A:
+                        SelectedAll();
+                        break;
+                    case Keys.C:
+                        CopySelectedToClipboard();
+                        break;
+                }
+            }
+        }
+
+        private void SelectedAll()
+        {
+            foreach (ListViewItem li in listView.Items)
+            {
+                li.Selected = true;
+            }
+        }
+
+        private void CopySelectedToClipboard()
+        {
+            var sb = new StringBuilder();
+
+            foreach (ListViewItem li in listView.Items)
+            {
+                if (!li.Selected) continue;
+
+                // (skip first column which is just row # label)
+                for (var i = 1; i < li.SubItems.Count; i++)
+                {
+                    var sli = li.SubItems[i];
+                    sb.Append(sli.Text);
+                    if (i < li.SubItems.Count - 1) sb.Append('\t');
+                }
+
+                sb.Append(Environment.NewLine);
+            }
+
+            Clipboard.SetText(sb.ToString());
+        }
     }
 }

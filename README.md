@@ -1,5 +1,30 @@
 ﻿# InfluxDB Studio
-**InfluxDB Studio is a UI management tool for [the InfluxDB time series database](https://www.influxdata.com/time-series-platform/influxdb/).**
+
+> ## NOTE
+>
+>This is a fork of the [InfluxDBStudio](https://github.com/CymaticLabs/InfluxDBStudio) repository that no longer seems to be maintained.
+>
+> **The goal of this fork is to**
+> * merge community pull requests
+> * be able to make smaller changes
+> * automatically build the project so others can [download the executable](https://github.com/mr-manuel/InfluxDBStudio/releases)
+>
+> Unfortunately I cannot develop new features, but feel free to open an issue for that. Maybe someone from the community can do it and open a pull request.
+>
+> **Allowed statements**
+>
+> Since the [InfluxData API](https://github.com/tihomir-kit/InfluxData.Net) is no longer developed, the queries are limited to following statements: `ALTER`, `CREATE`, `DELETE`, `DROP`, `EXPLAIN`, `GRANT`, `KILL`, `REVOKE`, `SELECT`, `SET` and `SHOW`.
+>
+> Yes, the `INSERT` statement is unfortunately NOT supported.
+>
+> **InfluxDB 2.x**
+>
+> The API does not support InfluxDB 2.x and [Flux](https://www.influxdata.com/products/flux/) language directly. As I know it also can't be added whithout rewriting the whole program.
+> You can use the [InfluxDB 1.x compatibility API](https://docs.influxdata.com/influxdb/v2.6/reference/api/influxdb-1x/).
+
+&nbsp;
+
+**InfluxDB Studio is a UI management tool for [the InfluxDB 1.x time series database](https://www.influxdata.com/time-series-platform/influxdb/).**
 
 Its inspiration comes from other similar database management tools such as [SQL Server Management Studio](https://en.wikipedia.org/wiki/SQL_Server_Management_Studio)
 and [Robomongo](https://robomongo.org/). Under the hood it's powered by [InfluxData.Net](https://github.com/pootzko/InfluxData.Net)
@@ -10,7 +35,7 @@ The following are planned features that are not yet implemented in the current v
 
 * _~~Retention Policy management~~ implemented, but not documented_
 * _~~Custom stats view for server stats (diagnostics is presently supported)~~ implemented, but not documented_
-* _~~Listing currently running queries~~ implemented, but not documented_ 
+* _~~Listing currently running queries~~ implemented, but not documented_
 * _~~Stopping long running queries~~ implemented, but not documented_
 * _An interface for writing point data directly to the database_
 
@@ -48,13 +73,14 @@ The following are planned features that are not yet implemented in the current v
    - [Settings Overview](#settings-overview)
    - [Exporting Settings](#exporting-settings)
    - [Importing Settings](#importing-settings)
+ - [Keyboard shortcuts](#keyboard-shortcuts)
  - [License](#license)
-   
+
 ## Installation
 
-Binary releases can be found [here](https://github.com/CymaticLabs/InfluxDBStudio/releases).
+Binary releases can be found [here](https://github.com/mr-manuel/InfluxDBStudio/releases).
 
-You can build locally by downloading the source or cloning the repository. Eventually some binary releases might be included with the repository going forward. To build, you will need [Visual Studio 2015](https://www.visualstudio.com/downloads/). Building with Mono might be possible with additional steps but it's not clear how usable it will be. The Mac OS X version definitely has some issues. For now, Windows is the recommended platform to use.
+You can build locally by downloading the source or cloning the repository. Eventually some binary releases might be included with the repository going forward. To build, you will need [Visual Studio](https://visualstudio.microsoft.com/downloads/) (2015, 2017, 2019 or 2022). Building with Mono might be possible with additional steps but it's not clear how usable it will be.
 
 Open the solution file `CymaticLabs.InfluxDB.sln` to get started.
 
@@ -105,32 +131,32 @@ _Explore databases and measurements by using the tree view in the left panel._
 
 The following connection commands are available:
 
- * **Refresh** - Refreshes the connections data; refetches database information from the server.
+ * **Refresh** - Refreshes the connections data; refetches database information from the server. You can also press **Ctrl + F5**.
  * **Create Database** - Creates a new database on the server.
  * **Show Users** - Lists users on the server and provides a user management interface.
  * **Diagnostics** - Shows server diagnostics including runtime, version, uptime, etc.
  * **Disconnect** - Closes the connection and removes it from the active connection list.
- 
+
 ### Showing Server Diagnostics
 
 To show connection diagnostics **right-click** or use **the toolbar button** to select the **Show Diagnostics** command:
 
 ![Show Diagnostics](docs/img/Connections_Diagnostics_2.png?raw=true "Show Diagnostics")
- 
+
 ## Working with Databases
 
 The following commands are available from the Database **context menu** and **toolbar buttons**:
 
-  * **Refresh** - Refreshes the database data; refetches measurement/series information from the server.
+  * **Refresh** - Refreshes the database data; refetches measurement/series information from the server. You can also press **Ctrl + F5**.
   * **New Query** - Opens a new query tab where you can run custom queries and explore the results.
   * **Show Continuous Queries** - Allows you to list, create, and delete **Continuous Queries** for the database.
   * **Run Backfill** - Lets your run a **Backfill Query** that downsamples or processes data into new measurements.
   * **Drop Database** - Drops the current database from the server.
 
-### Creating a Database 
- 
+### Creating a Database
+
 To create a database, select the **Connection** where you would like to create the database and select **Create Database** from the **context menu** or **the toolbar button**. Next provide the name for the database to create and press the **Create** button:
- 
+
 ![Create Database](docs/img/Connections_CreateDatabase_1.png?raw=true "Create Database")
 
 The created database should now appear in the tree view on the left:
@@ -168,7 +194,7 @@ in the export context menu.
 
 ### Creating Continuous Queries
 
-[Continious Queries](http://docs.influxdata.com/influxdb/v1.1/query_language/continuous_queries/) run at an interval that you specify and are often used to downsample data by averaging it or processing it as it streams in and dumping the downsample data into a new measurement. 
+[Continious Queries](http://docs.influxdata.com/influxdb/v1.1/query_language/continuous_queries/) run at an interval that you specify and are often used to downsample data by averaging it or processing it as it streams in and dumping the downsample data into a new measurement.
 
 To create and manage Continuous Queries, **right-click** or use **the toolbar button** and select the **Show Continuous Queries** command.
 
@@ -187,7 +213,7 @@ _Once you are satisified with your CQ press the **Create** button to create and 
 ![Continuous Query Created](docs/img/Databases_CQ_4.png?raw=true "Continuous Query Created")
 
 ### Running a Backfill Query
- 
+
 **Backfill Queries** are similar to **Continuous Queries** in that they are typically used to process or downsample data from one measurement into another.
 The difference is that where as **Continuous Queries** run in realtime at a fixed interval and process incoming data inside a user-specified rolling time window,
 **Backfill Queries** are typically only run once on older measurment data that is already stored in the database and outside of the CQ time window.
@@ -225,9 +251,9 @@ The following commands are available from the Measurement **context menu** and *
 
 ### Running a Measurement Query
 
-Select a measurement node in the tree view and either **double-click**, **right-click**, use **the toolbar button**, or select from the application menu **Query → New** to select the **New Query** command.
+Select a measurement node in the tree view and either **double-click**, **right-click  → New Query**, use **the toolbar button**, press **Ctrl + N** or select from the application menu **Query → New Query** to select the **New Query** command.
 
-Press **CTRL+R**, **the toolbar button**, or select from the application menu **Query → Run** to run the query. Results will be displayed in the table area below:
+Press **F5**, **the toolbar button**, or select from the application menu **Query → Run Query** to run the query. Results will be displayed in the table area below:
 
 ![Run Query](docs/img/Measurements_RunQuery_1.png?raw=true "Run Query")
 
@@ -237,10 +263,18 @@ Using **aggregation (GROUP BY)** in queries will group the series results into t
 
 ### Exporting Measurement Query Results
 
-The results of most query windows in InfluxDB Studio can be exported to file. **Right-click** in the results table and choose from the available export options.
+The results of most query windows in InfluxDB Studio can be exported to file or copied to clipbloard.
+
+**Export to file**
+
+**Right-click** in the results table and choose from the available export options.
 Data can be exported in either **CSV** or **JSON** format. Choosing **Export All** will export the entire set of returned rows to file. Alternatively you can
 export just the selected rows by using **CTRL + Left Click** and **Shift + Left Click** to select the rows you want to export and then choosing **Export Selected**
 in the export context menu.
+
+**Copy to clipboard**
+
+Select all by clicking in the result table, then press **Ctrl + A** or **CTRL + Left Click** and **Shift + Left Click** to select the rows you want to export. Finally press **Ctrl + C** to copy all selected rows to the clipboard.
 
 ![Exporting Measurement Results](docs/img/Measurements_ExportQuery_1.png?raw=true "Exporting Measurement Results")
 
@@ -302,7 +336,7 @@ The following is a list of available commands when working with users and privil
   * **Drop User** - Drops a user from the InfluxDB server.
   * **Grant Privilege** - Grants a privilege (Read, Write, All) to a user for a particular database.
   * **Edit Privilege** - Updates a user's privilege for a particular database.
- 
+
 ### Showing Users
 
 Select a connection node in the tree view and either **right-click** or use **the toolbar button** and select **Show Users**:
@@ -376,7 +410,7 @@ _Select the desired privilege from the drop down and save. To revoke all privile
 Application settings can be adjusted in the application **Settings** menu. Settings and connection information can also be imported and exported.
 
 ### Settings Overview
-  
+
   * **Settings → Time Format**
     * **12 hour** - Time will be displayed in a 12 hour format with AM/PM.
 	* **24 hour** - Time will be displayed in a 24 hour format.
@@ -392,6 +426,16 @@ To export application settings, including all configured InfluxDB server connect
 ### Importing Settings
 
 To import application settings, including all configured InfluxDB server connections, select **File → Import → Settings** from the **application menu** and browse to and select the exported settings file you would like to import then click **Open**.
+
+## Keyboard Shortcuts
+
+|Shortcut|Action|
+|---|---|
+|`F5`|Run the current query|
+|`Ctrl + N`|Create a new query when a database or measurement is selected|
+|`Ctrl + F5`|Reload connections and databases|
+|`Ctrl + A`|Select all rows in the results table|
+|`Ctrl + C`|Copy all selected rows from the results table to the clipboard|
 
 ## License
 

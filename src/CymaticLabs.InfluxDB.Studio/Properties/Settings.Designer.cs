@@ -12,7 +12,7 @@ namespace CymaticLabs.InfluxDB.Studio.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.4.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -49,25 +49,25 @@ namespace CymaticLabs.InfluxDB.Studio.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("hh:mm:ss tt")]
-        public string TimeFormat {
-            get {
-                return ((string)(this["TimeFormat"]));
-            }
-            set {
-                this["TimeFormat"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("M/dd/yyyy")]
+        [global::System.Configuration.DefaultSettingValueAttribute("yyyy/M/dd")]
         public string DateFormat {
             get {
                 return ((string)(this["DateFormat"]));
             }
             set {
                 this["DateFormat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("HH:mm:ss")]
+        public string TimeFormat {
+            get {
+                return ((string)(this["TimeFormat"]));
+            }
+            set {
+                this["TimeFormat"] = value;
             }
         }
     }

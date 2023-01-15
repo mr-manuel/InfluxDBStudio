@@ -82,7 +82,7 @@ namespace CymaticLabs.InfluxDB.Data
         /// <param name="password">The password to use when connecting to the InfluxDB server.</param>
         /// <param name="useSsl">Whether or not to use SSL to communicate with the InfluxDB server.</param>
         /// <param name="database">The name of the preferred database to use (optional).</param>
-        public InfluxDbConnection(string id, string name, string host, ushort port, 
+        public InfluxDbConnection(string id, string name, string host, ushort port,
             string username, string password, bool useSsl = true, string database = null)
         {
             Id = id;

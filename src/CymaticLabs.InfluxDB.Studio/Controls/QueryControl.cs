@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CymaticLabs.InfluxDB.Data;
+using ScintillaNET;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ScintillaNET;
-using CymaticLabs.InfluxDB.Data;
 
 namespace CymaticLabs.InfluxDB.Studio.Controls
 {
@@ -115,5 +115,6 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
         }
 
         #endregion Methods
+
     }
 }

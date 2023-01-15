@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CymaticLabs.InfluxDB.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using CymaticLabs.InfluxDB.Data;
+using System;
+using System.Collections.Generic;
 
 namespace CymaticLabs.InfluxDB.Studio
 {

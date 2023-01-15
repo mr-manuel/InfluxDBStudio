@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms;
-using CymaticLabs.InfluxDB.Data;
+﻿using CymaticLabs.InfluxDB.Data;
+using System.Windows.Forms;
 
 namespace CymaticLabs.InfluxDB.Studio.Dialogs
 {

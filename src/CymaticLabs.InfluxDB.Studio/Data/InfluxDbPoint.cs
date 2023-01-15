@@ -34,7 +34,7 @@ namespace CymaticLabs.InfluxDB.Data
 
         #region Constructors
 
-        public InfluxDbPoint(string measurement, 
+        public InfluxDbPoint(string measurement,
             IDictionary<string, object> tags, IDictionary<string, object> fields, DateTime? timeStamp = null)
         {
             if (string.IsNullOrWhiteSpace(measurement)) throw new ArgumentNullException("measurement");

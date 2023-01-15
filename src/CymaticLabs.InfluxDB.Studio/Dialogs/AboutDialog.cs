@@ -37,7 +37,7 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
         // Launch project link
         private void projectLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/CymaticLabs/InfluxDBStudio");
+            System.Diagnostics.Process.Start("https://github.com/mr-manuel/InfluxDBStudio");
         }
 
         // Launch InfluxData.Net link
@@ -51,5 +51,6 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
         #region Methods
 
         #endregion Methods
+
     }
 }

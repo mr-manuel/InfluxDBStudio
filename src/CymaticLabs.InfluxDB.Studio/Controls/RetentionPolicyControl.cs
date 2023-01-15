@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Windows.Forms;
-using CymaticLabs.InfluxDB.Data;
+﻿using CymaticLabs.InfluxDB.Data;
 using CymaticLabs.InfluxDB.Studio.Dialogs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CymaticLabs.InfluxDB.Studio.Controls
 {
@@ -161,7 +161,7 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
 
                 // Bind to current policy
                 policyDialog.BindToPolicy(SelectedRetentionPolicy);
-                
+
                 if (policyDialog.ShowDialog() == DialogResult.OK)
                 {
                     var name = policyDialog.PolicyName;

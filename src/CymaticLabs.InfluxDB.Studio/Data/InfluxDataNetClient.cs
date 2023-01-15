@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using InfluxData.Net.Common.Enums;
 using InfluxData.Net.InfluxDb.Enums;
-using InfluxData.Net.Common.Enums;
 using InfluxData.Net.InfluxDb.Models;
 using InfluxData.Net.InfluxDb.Models.Responses;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace CymaticLabs.InfluxDB.Data
 {
@@ -37,7 +38,12 @@ namespace CymaticLabs.InfluxDB.Data
             // Create the underlying concrete client
             var c = connection;
 
-            influx = new InfluxData.Net.InfluxDb.InfluxDbClient(c.HttpConnectionString, 
+            // trust any certificate
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.ServerCertificateValidationCallback +=
+                (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            influx = new InfluxData.Net.InfluxDb.InfluxDbClient(c.HttpConnectionString,
                 c.Username, c.Password, InfluxDbVersion.Latest);
         }
 
@@ -129,7 +135,7 @@ namespace CymaticLabs.InfluxDB.Data
             // If the default was supplied, run a second query to alter and add the default status since InfluxData.NET doesn't allow for the default argument
             if (response != null && response.Success && isDefault)
             {
-                var alterResponse = await influx.Client.QueryAsync(string.Format("ALTER RETENTION POLICY \"{0}\" ON \"{1}\" DEFAULT",database, policyName, database)).ConfigureAwait(false);
+                var alterResponse = await influx.Client.QueryAsync(string.Format("ALTER RETENTION POLICY \"{0}\" ON \"{1}\" DEFAULT", policyName, database)).ConfigureAwait(false);
             }
 
             return new InfluxDbApiResponse(response.Body, response.StatusCode, response.Success);
@@ -157,7 +163,7 @@ namespace CymaticLabs.InfluxDB.Data
             // If the default was supplied, run a second query to alter and add the default status since InfluxData.NET doesn't allow for the default argument
             if (response != null && response.Success && isDefault)
             {
-                var alterResponse = await influx.Client.QueryAsync(string.Format("ALTER RETENTION POLICY \"{0}\" ON \"{1}\" DEFAULT",database, policyName, database)).ConfigureAwait(false);
+                var alterResponse = await influx.Client.QueryAsync(string.Format("ALTER RETENTION POLICY \"{0}\" ON \"{1}\" DEFAULT", policyName, database)).ConfigureAwait(false);
             }
 
             return new InfluxDbApiResponse(response.Body, response.StatusCode, response.Success);
@@ -304,7 +310,7 @@ namespace CymaticLabs.InfluxDB.Data
         /// <returns>A list of the currently running queries.</returns>
         public async override Task<IEnumerable<InfluxDbRunningQuery>> GetRunningQueriesAsync()
         {
-            var response = await influx.Client.QueryAsync( "SHOW QUERIES", "_internal").ConfigureAwait(false);
+            var response = await influx.Client.QueryAsync("SHOW QUERIES", "_internal").ConfigureAwait(false);
             if (response.Count() == 0 || response.First().Values == null) return new InfluxDbRunningQuery[0];
             var results = response.First().Values;
             var queries = new List<InfluxDbRunningQuery>(results.Count);
@@ -391,7 +397,7 @@ namespace CymaticLabs.InfluxDB.Data
             if (!InfluxDbHelper.IsTimeIntervalValid(cqParams.Interval))
                 throw new ArgumentException("cqParams.Interval is invalid: " + cqParams.Interval);
 
-            if (!string.IsNullOrWhiteSpace(cqParams.ResampleEveryInterval) 
+            if (!string.IsNullOrWhiteSpace(cqParams.ResampleEveryInterval)
                 && !InfluxDbHelper.IsTimeIntervalValid(cqParams.ResampleEveryInterval))
             {
                 throw new ArgumentException("cqParams.ResampleEveryInterval is invalid: " + cqParams.ResampleEveryInterval);
@@ -519,7 +525,7 @@ namespace CymaticLabs.InfluxDB.Data
         {
             if (string.IsNullOrWhiteSpace(database)) throw new ArgumentNullException("database");
             var p = new Point() { Name = point.Measurement, Fields = point.Fields, Tags = point.Tags, Timestamp = point.TimeStamp };
-            var response = await influx.Client.WriteAsync(p, database,  retentionPolicy).ConfigureAwait(false);
+            var response = await influx.Client.WriteAsync(p, database, retentionPolicy).ConfigureAwait(false);
             return new InfluxDbApiResponse(response.Body, response.StatusCode, response.Success);
         }
 
@@ -542,8 +548,8 @@ namespace CymaticLabs.InfluxDB.Data
                 var p = new Point() { Name = point.Measurement, Fields = point.Fields, Tags = point.Tags, Timestamp = point.TimeStamp };
                 list.Add(p);
             }
-            
-            var response = await influx.Client.WriteAsync( list, database, retentionPolicy).ConfigureAwait(false);
+
+            var response = await influx.Client.WriteAsync(list, database, retentionPolicy).ConfigureAwait(false);
             return new InfluxDbApiResponse(response.Body, response.StatusCode, response.Success);
         }
 
@@ -703,7 +709,7 @@ namespace CymaticLabs.InfluxDB.Data
         /// <param name="privilege">The privilege to grant.</param>
         /// <param name="database">The name of the database the privilege is for.</param>
         /// <returns>The query response.</returns>
-        public async override Task<InfluxDbApiResponse> GrantPrivilegeAsync(string username, 
+        public async override Task<InfluxDbApiResponse> GrantPrivilegeAsync(string username,
             InfluxDbPrivileges privilege, string database)
         {
             if (string.IsNullOrWhiteSpace(username)) throw new ArgumentNullException("username");
@@ -720,7 +726,7 @@ namespace CymaticLabs.InfluxDB.Data
         /// <param name="privilege">The privilege to revoke.</param>
         /// <param name="database">The name of the database the privilege should be revoked from.</param>
         /// <returns>The query response.</returns>
-        public async override Task<InfluxDbApiResponse> RevokePrivilegeAsync(string username, 
+        public async override Task<InfluxDbApiResponse> RevokePrivilegeAsync(string username,
             InfluxDbPrivileges privilege, string database)
         {
             if (string.IsNullOrWhiteSpace(username)) throw new ArgumentNullException("username");

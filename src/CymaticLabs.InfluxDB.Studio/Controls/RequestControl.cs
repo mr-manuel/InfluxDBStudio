@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using CymaticLabs.InfluxDB.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using CymaticLabs.InfluxDB.Data;
 
 namespace CymaticLabs.InfluxDB.Studio.Controls
 {
