@@ -99,6 +99,7 @@
             this.databaseContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.databaseRefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newQueryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.policiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.continousQueriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backFillToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dropDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -341,7 +342,6 @@
             this.manageConnectionsButton,
             this.disconnectButton,
             this.toolStripSeparator4,
-            this.showPoliciesButton,
             this.showUsersButton,
             this.showStatsButton,
             this.showDiagnosticsButton,
@@ -352,6 +352,7 @@
             this.runQueryButton,
             this.toolStripSeparator2,
             this.createDatabaseButton,
+            this.showPoliciesButton,
             this.continuousQueryButton,
             this.backFillButton,
             this.dropDatabaseButton,
@@ -765,6 +766,7 @@
             this.databaseContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.databaseRefreshToolStripMenuItem,
             this.newQueryToolStripMenuItem,
+            this.policiesToolStripMenuItem,
             this.continousQueriesToolStripMenuItem,
             this.backFillToolStripMenuItem,
             this.dropDatabaseToolStripMenuItem});
@@ -786,6 +788,14 @@
             this.newQueryToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.newQueryToolStripMenuItem.Text = "New Query";
             this.newQueryToolStripMenuItem.Click += new System.EventHandler(this.newQueryMenuItem_Click);
+            //
+            // policiesToolStripMenuItem
+            //
+            this.policiesToolStripMenuItem.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.RetentionPolicy;
+            this.policiesToolStripMenuItem.Name = "policiesToolStripMenuItem";
+            this.policiesToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.policiesToolStripMenuItem.Text = "Show Retention Policies";
+            this.policiesToolStripMenuItem.Click += new System.EventHandler(this.showRetentionPoliciesToolStripMenuItem_Click);
             //
             // continousQueriesToolStripMenuItem
             //
@@ -989,6 +999,7 @@
         private System.Windows.Forms.ToolStripButton manageConnectionsButton;
         private System.Windows.Forms.ToolStripButton refreshButton;
         private System.Windows.Forms.ToolStripButton createDatabaseButton;
+        private System.Windows.Forms.ToolStripMenuItem policiesToolStripMenuItem;        
         private System.Windows.Forms.ToolStripButton showDiagnosticsButton;
         private System.Windows.Forms.ToolStripButton disconnectButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

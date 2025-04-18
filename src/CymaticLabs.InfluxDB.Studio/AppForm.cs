@@ -924,13 +924,25 @@ namespace CymaticLabs.InfluxDB.Studio
         {
             try
             {
-                // Get connection
+                // Get the connection for this node
                 var connection = GetConnection(node);
+
+                // Get the active client for this connection
                 var client = GetClient(connection);
 
                 // Create a new control
                 var policyControl = new RetentionPolicyControl();
                 policyControl.InfluxDbClient = client;
+
+                // Check if the selected node is a database
+                if (GetNodeType(connectionsTreeView.SelectedNode) == InfluxDbNodeTypes.Database)
+                {
+                    policyControl.InfluxDbClient.Connection.Database = node.Text;
+                }
+                else
+                {
+                    policyControl.InfluxDbClient.Connection.Database = null;
+                }
 
                 // Add a tab with a query control in it
                 tabControl.AddTabWithControl(connection.Name + ".policies", policyControl, Properties.Resources.RetentionPolicy);
@@ -1485,10 +1497,16 @@ namespace CymaticLabs.InfluxDB.Studio
                 queryControl.InfluxDbClient = client;
                 queryControl.Database = database;
                 //queryControl.EditorText = string.Format("SELECT * FROM \"{0}\" WHERE time > now() - 5m", measurement);
-                queryControl.EditorText = string.Format("SELECT *\r\nFROM \"{0}\"\r\nORDER BY \"time\" DESC\r\nLIMIT 500", measurement);
+                queryControl.EditorText = string.Format(
+                    "SELECT *\r\n" +
+                    "FROM \"autogen\".\"{0}\"\r\n" +
+                    "--WHERE \"tag\" = 'value'\r\n" +
+                    "ORDER BY \"time\" DESC\r\n" +
+                    "LIMIT 500", measurement
+                );
 
                 // Add a tab with a query control in it
-                tabControl.AddTabWithControl(connection.Name + "." + database, queryControl, Properties.Resources.RunQuery);
+                tabControl.AddTabWithControl(connection.Name + "." + database, queryControl, Properties.Resources.NewQuery);
 
                 // Update UI
                 UpdateUIState();
@@ -1658,7 +1676,7 @@ namespace CymaticLabs.InfluxDB.Studio
                 refreshButton.Enabled = type == InfluxDbNodeTypes.Connection || type == InfluxDbNodeTypes.Database;
                 newQueryButton.Enabled = type == InfluxDbNodeTypes.Database || type == InfluxDbNodeTypes.Measurement;
                 showQueriesButton.Enabled = type == InfluxDbNodeTypes.Connection;
-                showPoliciesButton.Enabled = type == InfluxDbNodeTypes.Connection;
+                showPoliciesButton.Enabled = type == InfluxDbNodeTypes.Connection || type == InfluxDbNodeTypes.Database;
                 showUsersButton.Enabled = type == InfluxDbNodeTypes.Connection;
                 showStatsButton.Enabled = type == InfluxDbNodeTypes.Connection;
                 showDiagnosticsButton.Enabled = type == InfluxDbNodeTypes.Connection;

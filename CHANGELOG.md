@@ -1,5 +1,14 @@
 # Changelog
 
+
+## v0.2.2
+
+### Program
+* Added retention policy menu entry for database context menu
+* Changed default query to include retention policy and commented where clause
+* Changed run query icon
+
+
 ## v0.2.1
 
 ### Project
@@ -32,7 +41,6 @@
 * Added: press `Ctrl + A` to select all rows in the results table
 * Added: press `Ctrl + C` to copy all selected rows from the results table to the clipboard
 
-
 ### Query
 * New default query:
 ```sql
@@ -44,6 +52,7 @@ LIMIT 500
 
 ### GitHub Actions
 * Added configurations that program compiles on every commit and on every release. This allows to download the compiled version
+
 
 ## v0.2.0-beta-1
 
