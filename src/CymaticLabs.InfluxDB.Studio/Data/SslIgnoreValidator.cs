@@ -1,59 +1,49 @@
-﻿using System.Net;
-using System.Net.Security;
+﻿using System;
+using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 
 namespace CymaticLabs.InfluxDB.Data
 {
     /// <summary>
-    /// Utility class used to ignore verifying SSL/TLS certificates.
+    /// Utility class used to configure SSL/TLS certificate validation for InfluxDB
+    /// connections when untrusted SSL is allowed by the user.
     /// </summary>
+    /// <remarks>
+    /// On .NET the <see cref="System.Net.ServicePointManager"/> settings no longer
+    /// affect <see cref="HttpClient"/>, so the certificate validation callback must be
+    /// supplied on the <see cref="HttpClientHandler"/> used by each client instead.
+    /// </remarks>
     public static class SslIgnoreValidator
     {
-        // Whether or not the SSL validator override has been enabled or not
-        private static bool enabled = false;
-
         // Whether or not to allow untrusted SSL/TLS certificates.
         private static bool allowUntrusted = false;
 
         /// <summary>
-        /// Gets whether or not to allow untrusted SSL/TLS certificates.
+        /// Gets or sets whether or not to allow untrusted SSL/TLS certificates.
         /// </summary>
         public static bool AllowUntrusted
         {
             get { return allowUntrusted; }
-            
-            set
-            {
-                allowUntrusted = value;
-
-                // Configure untrusted allowances as needed
-                if (allowUntrusted && !enabled)
-                {
-                    OverrideValidation();
-                    enabled = true;
-                }
-            }
+            set { allowUntrusted = value; }
         }
 
-        // Custom validation method
-        private static bool OnValidateCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        /// <summary>
+        /// Creates an <see cref="HttpClient"/> whose handler bypasses certificate
+        /// validation errors when <see cref="AllowUntrusted"/> is enabled.
+        /// </summary>
+        /// <returns>An <see cref="HttpClient"/> configured for the current setting.</returns>
+        public static HttpClient CreateHttpClient()
         {
-            if (sslPolicyErrors != SslPolicyErrors.None)
+            var handler = new HttpClientHandler();
+
+            if (allowUntrusted)
             {
-                if (!allowUntrusted && sslPolicyErrors == SslPolicyErrors.RemoteCertificateChainErrors)
-                {
-                    return false;
-                }
+                handler.ServerCertificateCustomValidationCallback =
+                    (HttpRequestMessage message, X509Certificate2 certificate,
+                     X509Chain chain, System.Net.Security.SslPolicyErrors errors) => true;
             }
 
-            return true;
-        }
-
-        // Overrides SSL/TLS certificate validation.
-        static void OverrideValidation()
-        {
-            ServicePointManager.ServerCertificateValidationCallback = OnValidateCertificate;
-            ServicePointManager.Expect100Continue = true;
+            return new HttpClient(handler);
         }
     }
 }

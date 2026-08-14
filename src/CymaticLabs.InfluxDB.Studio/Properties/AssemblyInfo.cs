@@ -1,16 +1,18 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+[assembly: SupportedOSPlatform("Windows")]
 [assembly: AssemblyTitle("CymaticLabs.InfluxDB.Studio")]
 [assembly: AssemblyDescription("Visual IDE for managing InfluxDB")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CymaticLabs.InfluxDB.Studio")]
-[assembly: AssemblyCopyright("Copyright © Michael Everett/Cymatic Labs 2017")]
+[assembly: AssemblyCopyright("Copyright © 2026 CymaticLabs)]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,8 +34,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.2.0.0")]
-[assembly: AssemblyFileVersion("0.2.0.0")]
+[assembly: AssemblyVersion("0.3.0.0")]
+[assembly: AssemblyFileVersion("0.3.0.0")]
 
 // Enable log4net using app.config
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]

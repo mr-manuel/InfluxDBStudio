@@ -78,7 +78,7 @@
             this.queryEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.queryEditor.Lexer = ScintillaNET.Lexer.Sql;
+            this.queryEditor.LexerName = "sql";
             this.queryEditor.Location = new System.Drawing.Point(12, 280);
             this.queryEditor.Name = "queryEditor";
             this.queryEditor.Size = new System.Drawing.Size(595, 145);

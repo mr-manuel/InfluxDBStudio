@@ -6,6 +6,8 @@ and [Robomongo](https://robomongo.org/). Under the hood it's powered by [InfluxD
 which is a portable InfluxDB client library for .NET (plus some [Kapacitor](https://www.influxdata.com/time-series-platform/kapacitor/) support).
 InfluxDB Studio presently implements interfaces and workflows for most of the InfluxData.Net API.
 
+**Current build:** version **0.3.0** — upgraded to target **.NET 10** (`net10.0-windows`).
+
 The following are planned features that are not yet implemented in the current version:
 
 * _~~Retention Policy management~~ implemented, but not documented_
@@ -52,11 +54,31 @@ The following are planned features that are not yet implemented in the current v
    
 ## Installation
 
-Binary releases can be found [here](https://github.com/CymaticLabs/InfluxDBStudio/releases).
+Binary releases can be found [here](https://github.com/ndavat/InfluxDBStudio/releases).
 
-You can build locally by downloading the source or cloning the repository. Eventually some binary releases might be included with the repository going forward. To build, you will need [Visual Studio 2015](https://www.visualstudio.com/downloads/). Building with Mono might be possible with additional steps but it's not clear how usable it will be. The Mac OS X version definitely has some issues. For now, Windows is the recommended platform to use.
+You can build locally by downloading the source or cloning the repository. To build, you will need the [.NET 10 SDK](https://dotnet.microsoft.com/download) and [Visual Studio 2022 or newer](https://visualstudio.microsoft.com/downloads/) with the "Desktop development with .NET" workload (the Windows Forms designer). This is a Windows-only application because it targets `net10.0-windows` with Windows Forms, so Windows is the required platform to build and run.
 
-Open the solution file `CymaticLabs.InfluxDB.sln` to get started.
+### Build from source
+
+From a command prompt at the repository root:
+
+```powershell
+dotnet build CymaticLabs.InfluxDB.sln -c Debug
+```
+
+Or open the solution file `CymaticLabs.InfluxDB.sln` in Visual Studio and press <kbd>F5</kbd> to build and run.
+
+### Run
+
+After building, launch the compiled executable:
+
+```
+src\CymaticLabs.InfluxDB.Studio\bin\Debug\net10.0-windows\InfluxDBStudio.exe
+```
+
+The app opens to the **Manage Connections** dialog, where you can create an InfluxDB server connection (host, port, database, credentials, and SSL options) and connect.
+
+> **Note:** InfluxDB Studio is Windows-only. `App.config` is copied to `InfluxDBStudio.dll.config` next to the executable, so keep them together. Saved connections are stored in `user.config` under `%LocalAppData%`.
 
 ## Managing Connections
 

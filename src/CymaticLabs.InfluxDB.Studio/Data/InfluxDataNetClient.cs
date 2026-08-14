@@ -37,8 +37,14 @@ namespace CymaticLabs.InfluxDB.Data
             // Create the underlying concrete client
             var c = connection;
 
-            influx = new InfluxData.Net.InfluxDb.InfluxDbClient(c.HttpConnectionString, 
-                c.Username, c.Password, InfluxDbVersion.Latest);
+            influx = new InfluxData.Net.InfluxDb.InfluxDbClient(
+                c.HttpConnectionString,
+                c.Username,
+                c.Password,
+                InfluxDbVersion.Latest,
+                InfluxData.Net.Common.Enums.QueryLocation.FormData,
+                SslIgnoreValidator.CreateHttpClient(),
+                false);
         }
 
         #endregion Constructors

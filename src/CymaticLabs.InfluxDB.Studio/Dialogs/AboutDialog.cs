@@ -37,13 +37,21 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
         // Launch project link
         private void projectLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/CymaticLabs/InfluxDBStudio");
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = "https://github.com/CymaticLabs/InfluxDBStudio",
+                UseShellExecute = true
+            });
         }
 
         // Launch InfluxData.Net link
         private void influxDataNetLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/pootzko/InfluxData.Net");
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = "https://github.com/pootzko/InfluxData.Net",
+                UseShellExecute = true
+            });
         }
 
         #endregion Event Handlers
