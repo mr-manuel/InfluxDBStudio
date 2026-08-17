@@ -8,6 +8,7 @@
     <AssemblyName>InfluxDBStudio</AssemblyName>
     <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <PlatformTarget>AnyCPU</PlatformTarget>
