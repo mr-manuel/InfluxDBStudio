@@ -33,6 +33,8 @@ InfluxDB Studio presently implements interfaces and workflows for most of the In
 
 **Current build:** version **0.3.0** — upgraded to target **.NET 10** (`net10.0-windows`).
 
+> **v0.3.0.0** — This release upgrades InfluxDB Studio from .NET Framework to **.NET 10** (`net10.0-windows`): SDK-style project, `PackageReference` dependencies, Scintilla5.NET, and per-client SSL handling. See [CHANGELOG.md](CHANGELOG.md) for the full list of changes.
+
 The following are planned features that are not yet implemented in the current version:
 
 * _~~Retention Policy management~~ implemented, but not documented_

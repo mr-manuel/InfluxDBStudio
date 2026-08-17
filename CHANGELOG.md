@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.3.0.0
+
+### Project
+* Upgraded project from .NET Framework to **.NET 10** (`net10.0-windows`), Windows-only
+* Converted the project file to SDK-style (`Microsoft.NET.Sdk`)
+* Replaced `packages.config` with `PackageReference` items
+
+### Program
+* Replaced the obsolete `ServicePointManager` SSL trust with an `HttpClientHandler.ServerCertificateCustomValidationCallback` applied per client
+* Updated the About dialog links to open with `UseShellExecute`
+
+### Dependencies
+* Updated InfluxData.Net to 8.0.1
+* Replaced `jacobslusser.ScintillaNET` with `Scintilla5.NET` 7.0.0
+* Updated log4net to 3.3.2
+* Updated Newtonsoft.Json to 13.0.4
+* Added System.Configuration.ConfigurationManager 10.0.11
+
+### Configuration
+* Removed the legacy `<startup>`/`<runtime>` sections from `App.config`
+
+
 ## v0.2.2
 
 ### Program

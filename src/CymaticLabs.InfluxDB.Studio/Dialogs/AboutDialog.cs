@@ -32,6 +32,10 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
         {
             // Apply the current version number
             versionLabel.Text = AppForm.Settings.Version;
+
+            // Position the version right after the title so there is no gap
+            // regardless of the title's rendered width.
+            versionLabel.Left = titleLabel.Right + 6;
         }
 
         // Launch project link

@@ -158,7 +158,7 @@
             this.updatedLabel.Name = "updatedLabel";
             this.updatedLabel.Size = new System.Drawing.Size(161, 13);
             this.updatedLabel.TabIndex = 5;
-            this.updatedLabel.Text = "Last updated 2023 by mr-manuel";
+            this.updatedLabel.Text = "Last updated 2026";
             // 
             // AboutDialog
             // 
