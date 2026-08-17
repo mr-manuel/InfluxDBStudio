@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CymaticLabs.InfluxDB.Data;
+using ScintillaNET;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ScintillaNET;
-using CymaticLabs.InfluxDB.Data;
 
 namespace CymaticLabs.InfluxDB.Studio.Dialogs
 {
@@ -147,7 +147,7 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
         #region Data
 
         /// <summary>
-        /// Binds the form's database drop down to the list of available databases for the 
+        /// Binds the form's database drop down to the list of available databases for the
         /// current connection.
         /// </summary>
         public async Task BindInfluxDataSources()

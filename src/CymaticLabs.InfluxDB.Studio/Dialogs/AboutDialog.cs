@@ -39,7 +39,7 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
             {
-                FileName = "https://github.com/CymaticLabs/InfluxDBStudio",
+                FileName = "https://github.com/mr-manuel/InfluxDBStudio",
                 UseShellExecute = true
             });
         }
@@ -59,5 +59,6 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
         #region Methods
 
         #endregion Methods
+
     }
 }

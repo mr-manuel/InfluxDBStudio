@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using Newtonsoft.Json;
 
 namespace CymaticLabs.InfluxDB.Studio.Controls
 {
@@ -85,7 +85,7 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
                 using (var sw = new StreamWriter(saveFileDialog.FileName))
                 {
                     sb.Clear();
-                        
+
                     // Write the CSV column names (skip first column which is just row # label)
                     for (var i = 1; i < listView.Columns.Count; i++)
                     {

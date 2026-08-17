@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CymaticLabs.InfluxDB.Data;
+using System;
 using System.Windows.Forms;
-using CymaticLabs.InfluxDB.Data;
 
 namespace CymaticLabs.InfluxDB.Studio.Dialogs
 {
@@ -62,6 +62,7 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
                 isCreating = value;
                 nameTextBox.ReadOnly = !isCreating;
                 createButton.Text = isCreating ? "Create" : "Update";
+                Text = isCreating ? "Create Retention Policy" : "Alter Retention Policy";
             }
         }
 

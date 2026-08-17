@@ -1,11 +1,11 @@
-﻿using System;
+﻿using CymaticLabs.InfluxDB.Data;
+using CymaticLabs.InfluxDB.Studio.Dialogs;
+using ScintillaNET;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ScintillaNET;
-using CymaticLabs.InfluxDB.Data;
-using CymaticLabs.InfluxDB.Studio.Dialogs;
 
 namespace CymaticLabs.InfluxDB.Studio.Controls
 {
@@ -168,7 +168,7 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
                     {
                         AppForm.DisplayError(response.Body);
                     }
-                    
+
                     UpdateUIState();
                 }
             }

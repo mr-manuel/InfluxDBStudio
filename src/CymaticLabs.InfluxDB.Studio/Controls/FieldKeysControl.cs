@@ -50,7 +50,7 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
 
             foreach (var fk in fieldKeys)
             {
-                listView.Items.Add(new ListViewItem(new string[] { (++rowCount).ToString(), fk.Name, fk.Type }) {Tag = fk });
+                listView.Items.Add(new ListViewItem(new string[] { (++rowCount).ToString(), fk.Name, fk.Type }) { Tag = fk });
             }
         }
 

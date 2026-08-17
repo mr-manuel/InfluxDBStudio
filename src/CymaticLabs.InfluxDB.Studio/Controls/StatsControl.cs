@@ -1,13 +1,13 @@
-﻿using System;
+﻿using CymaticLabs.InfluxDB.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CymaticLabs.InfluxDB.Data;
 
 namespace CymaticLabs.InfluxDB.Studio.Controls
 {
@@ -115,8 +115,8 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
 
             // Use reflection to get the selected statistic
             statResults = (from pi in CurrentStatistics.GetType().GetProperties()
-                          where pi.Name == SelectedStatistic
-                          select pi.GetValue(CurrentStatistics) as IEnumerable<InfluxDbSeries>).FirstOrDefault();
+                           where pi.Name == SelectedStatistic
+                           select pi.GetValue(CurrentStatistics) as IEnumerable<InfluxDbSeries>).FirstOrDefault();
 
             if (statResults == null) return;
 

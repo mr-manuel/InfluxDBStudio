@@ -1,9 +1,8 @@
-﻿using System;
+﻿using CymaticLabs.InfluxDB.Data;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using CymaticLabs.InfluxDB.Data;
 
 namespace CymaticLabs.InfluxDB.Studio.Dialogs
 {

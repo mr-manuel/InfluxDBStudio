@@ -152,7 +152,7 @@
             // 
             this.databaseInstructions.AutoSize = true;
             this.databaseInstructions.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.databaseInstructions.Location = new System.Drawing.Point(73, 144);
+            this.databaseInstructions.Location = new System.Drawing.Point(76, 143);
             this.databaseInstructions.Name = "databaseInstructions";
             this.databaseInstructions.Size = new System.Drawing.Size(356, 26);
             this.databaseInstructions.TabIndex = 9;
@@ -163,7 +163,7 @@
             // 
             this.addressInstructions.AutoSize = true;
             this.addressInstructions.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.addressInstructions.Location = new System.Drawing.Point(73, 85);
+            this.addressInstructions.Location = new System.Drawing.Point(76, 83);
             this.addressInstructions.Name = "addressInstructions";
             this.addressInstructions.Size = new System.Drawing.Size(233, 13);
             this.addressInstructions.TabIndex = 9;
@@ -173,7 +173,7 @@
             // 
             this.nameInstructions.AutoSize = true;
             this.nameInstructions.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.nameInstructions.Location = new System.Drawing.Point(73, 27);
+            this.nameInstructions.Location = new System.Drawing.Point(76, 23);
             this.nameInstructions.Name = "nameInstructions";
             this.nameInstructions.Size = new System.Drawing.Size(344, 13);
             this.nameInstructions.TabIndex = 10;
@@ -183,7 +183,7 @@
             // 
             this.host.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.host.Location = new System.Drawing.Point(76, 62);
+            this.host.Location = new System.Drawing.Point(76, 60);
             this.host.Name = "host";
             this.host.Size = new System.Drawing.Size(265, 20);
             this.host.TabIndex = 1;
@@ -193,7 +193,7 @@
             // 
             this.database.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.database.Location = new System.Drawing.Point(76, 121);
+            this.database.Location = new System.Drawing.Point(76, 120);
             this.database.Name = "database";
             this.database.Size = new System.Drawing.Size(373, 20);
             this.database.TabIndex = 3;

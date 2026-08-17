@@ -1,7 +1,6 @@
-﻿using System;
+﻿using CymaticLabs.InfluxDB.Data;
+using System;
 using System.Windows.Forms;
-
-using CymaticLabs.InfluxDB.Data;
 
 namespace CymaticLabs.InfluxDB.Studio.Dialogs
 {
@@ -196,7 +195,7 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
         /// <returns>An InfluxDB connection.</returns>
         public InfluxDbConnection CreateConnection()
         {
-            return new InfluxDbConnection(Guid.NewGuid().ToString(), ConnectionName, Host, 
+            return new InfluxDbConnection(Guid.NewGuid().ToString(), ConnectionName, Host,
                 (ushort)Port, Username, Password, UseSsl, Database);
         }
 

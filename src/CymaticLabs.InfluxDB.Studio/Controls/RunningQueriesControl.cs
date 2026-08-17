@@ -1,14 +1,14 @@
-﻿using System;
+﻿using CymaticLabs.InfluxDB.Data;
+using ScintillaNET;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ScintillaNET;
-using CymaticLabs.InfluxDB.Data;
 
 namespace CymaticLabs.InfluxDB.Studio.Controls
 {
@@ -142,7 +142,8 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
                     q.Duration,
                     q.Database.ToString(),
                     q.Query
-                }) { Tag = q });
+                })
+                { Tag = q });
             }
 
             // Restore selection

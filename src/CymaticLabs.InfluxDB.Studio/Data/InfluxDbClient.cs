@@ -323,7 +323,7 @@ namespace CymaticLabs.InfluxDB.Data
         /// <param name="username">The name of the user to grant privileges to.</param>
         /// <returns>The API response.</returns>
         public abstract Task<InfluxDbApiResponse> GrantAdministratorAsync(string username);
-        
+
         /// <summary>
         /// Revokes administrator privileges from a user.
         /// </summary>
