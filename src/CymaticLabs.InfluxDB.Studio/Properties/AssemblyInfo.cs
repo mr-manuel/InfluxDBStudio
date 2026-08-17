@@ -12,7 +12,7 @@ using System.Runtime.Versioning;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CymaticLabs.InfluxDB.Studio")]
-[assembly: AssemblyCopyright("Copyright © ndavat")]
+[assembly: AssemblyCopyright("Copyright © Michael Everett/Cymatic Labs 2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
