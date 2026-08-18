@@ -9,12 +9,6 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
     /// </summary>
     public partial class EditPrivilegeDialog : Form
     {
-        #region Fields
-
-        InfluxDbGrant grant;
-
-        #endregion Fields
-
         #region Properties
 
         /// <summary>
