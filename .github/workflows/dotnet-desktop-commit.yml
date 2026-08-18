@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         configuration: ['Release']
-        dotnet-version: ['3.1.426']
+        dotnet-version: ['10.0.x']
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
@@ -27,13 +27,13 @@ jobs:
     # checkout project und git clone project
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v7
       with:
         fetch-depth: 0
 
-    # Install the .NET Core workload
-    - name: Install .NET Core ${{ matrix.dotnet-version }}
-      uses: actions/setup-dotnet@v3
+    # Install the .NET workload
+    - name: Install .NET ${{ matrix.dotnet-version }}
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
 
@@ -49,7 +49,7 @@ jobs:
 
     # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v3
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
@@ -95,16 +95,24 @@ jobs:
     #- name: Remove the pfx
     #  run: Remove-Item -path $env:Wap_Project_Directory\GitHubActionsWorkflow.pfx
 
+    # Show the content of the root folder
+    - name: Show the content of the root folder
+      run: Get-ChildItem -Path ".\"
+
+    # Show the contents of the Release folder
+    - name: Show the contents of the Release folder
+      run: Get-ChildItem -Path ".\src\CymaticLabs.InfluxDB.Studio\bin\Release" -Recurse
+
     # Rename folder
     - name: Rename folder
-      run: Rename-Item -Path ".\Release\Release" -NewName "InfluxDBStudio"
+      run: Rename-Item -Path ".\src\CymaticLabs.InfluxDB.Studio\bin\Release\net10.0-windows" -NewName "InfluxDBStudio"
 
     # Upload the files: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: InfluxDBStudio
-        path: .\Release
+        path: .\src\CymaticLabs.InfluxDB.Studio\bin\Release\InfluxDBStudio
         # default retention 90 days
         retention-days: 30
 

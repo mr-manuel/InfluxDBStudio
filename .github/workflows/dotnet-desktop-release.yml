@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         configuration: ['Release']
-        dotnet-version: ['3.1.426']
+        dotnet-version: ['10.0.x']
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
@@ -27,13 +27,13 @@ jobs:
     # checkout project und git clone project
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v7
       with:
         fetch-depth: 0
 
-    # Install the .NET Core workload
-    - name: Install .NET Core ${{ matrix.dotnet-version }}
-      uses: actions/setup-dotnet@v3
+    # Install the .NET workload
+    - name: Install .NET ${{ matrix.dotnet-version }}
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
 
@@ -49,7 +49,7 @@ jobs:
 
     # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v3
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
@@ -97,11 +97,11 @@ jobs:
 
     # Rename folder
     - name: Rename folder
-      run: Rename-Item -Path ".\Release\Release" -NewName "InfluxDBStudio-${{ github.ref_name }}"
+      run: Rename-Item -Path ".\src\CymaticLabs.InfluxDB.Studio\bin\Release\net10.0-windows" -NewName "InfluxDBStudio-${{ github.ref_name }}"
 
 #    # Upload the files: https://github.com/marketplace/actions/upload-a-build-artifact
 #    - name: Upload build artifacts
-#      uses: actions/upload-artifact@v4
+#      uses: actions/upload-artifact@v7
 #      with:
 #        name: InfluxDBStudio
 #        path: .\Release\InfluxDBStudio-${{ github.ref_name }}
@@ -109,7 +109,7 @@ jobs:
 #        retention-days: 30
 
     - name: Create ZIP
-      run: Compress-Archive ".\Release\InfluxDBStudio-${{ github.ref_name }}" -DestinationPath ".\InfluxDBStudio-${{ github.ref_name }}.zip"
+      run: Compress-Archive ".\src\CymaticLabs.InfluxDB.Studio\bin\Release\InfluxDBStudio-${{ github.ref_name }}" -DestinationPath ".\InfluxDBStudio-${{ github.ref_name }}.zip"
 
     # Create the release: https://github.com/actions/create-release
     - name: Create release
