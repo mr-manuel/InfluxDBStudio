@@ -55,6 +55,10 @@
             this.dateFormatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateFormatComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.allowUntrustedSSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.themeSystemMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.themeLightMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.themeDarkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
@@ -259,7 +263,8 @@
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.timeFormatToolStripMenuItem,
             this.dateFormatToolStripMenuItem,
-            this.allowUntrustedSSLToolStripMenuItem});
+            this.allowUntrustedSSLToolStripMenuItem,
+            this.themeToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -311,6 +316,37 @@
             this.allowUntrustedSSLToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.allowUntrustedSSLToolStripMenuItem.Text = "Allow Untrusted SSL";
             this.allowUntrustedSSLToolStripMenuItem.CheckedChanged += new System.EventHandler(this.allowUntrustedSSLToolStripMenuItem_CheckedChanged);
+            //
+            // themeToolStripMenuItem
+            //
+            this.themeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.themeSystemMenuItem,
+            this.themeLightMenuItem,
+            this.themeDarkMenuItem});
+            this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.themeToolStripMenuItem.Text = "Theme";
+            //
+            // themeSystemMenuItem
+            //
+            this.themeSystemMenuItem.Name = "themeSystemMenuItem";
+            this.themeSystemMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.themeSystemMenuItem.Text = "System";
+            this.themeSystemMenuItem.Click += new System.EventHandler(this.themeMenuItem_Click);
+            //
+            // themeLightMenuItem
+            //
+            this.themeLightMenuItem.Name = "themeLightMenuItem";
+            this.themeLightMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.themeLightMenuItem.Text = "Light";
+            this.themeLightMenuItem.Click += new System.EventHandler(this.themeMenuItem_Click);
+            //
+            // themeDarkMenuItem
+            //
+            this.themeDarkMenuItem.Name = "themeDarkMenuItem";
+            this.themeDarkMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.themeDarkMenuItem.Text = "Dark";
+            this.themeDarkMenuItem.Click += new System.EventHandler(this.themeMenuItem_Click);
             //
             // helpToolStripMenuItem
             //
@@ -1039,6 +1075,10 @@
         private System.Windows.Forms.ToolStripMenuItem dateFormatToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox dateFormatComboBox;
         private System.Windows.Forms.ToolStripMenuItem allowUntrustedSSLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem themeSystemMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem themeLightMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem themeDarkMenuItem;
         private System.Windows.Forms.ToolStripButton showQueriesButton;
         private System.Windows.Forms.ToolStripMenuItem showQueriesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showQueriesContextMenuItem;

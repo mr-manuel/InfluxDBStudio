@@ -64,6 +64,9 @@ namespace CymaticLabs.InfluxDB.Studio
         // The application about dialog
         AboutDialog aboutDialog;
 
+        // Suppresses the theme restart prompt while settings are being applied programmatically
+        bool applyingSettings;
+
         #endregion Fields
 
         #region Properties
@@ -229,6 +232,29 @@ namespace CymaticLabs.InfluxDB.Studio
         private void dateFormatComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Settings.DateFormat = dateFormatComboBox.SelectedIndex == 0 ? AppSettings.DateFormatMonth : AppSettings.DateFormatDay;
+        }
+
+        // Handles Settings -> Theme -> System/Light/Dark selection
+        private void themeMenuItem_Click(object sender, EventArgs e)
+        {
+            string theme;
+
+            if (sender == themeLightMenuItem) theme = AppSettings.ThemeLight;
+            else if (sender == themeDarkMenuItem) theme = AppSettings.ThemeDark;
+            else theme = AppSettings.ThemeSystem;
+
+            // Reflect the selection as a radio-style checkmark
+            themeSystemMenuItem.Checked = theme == AppSettings.ThemeSystem;
+            themeLightMenuItem.Checked = theme == AppSettings.ThemeLight;
+            themeDarkMenuItem.Checked = theme == AppSettings.ThemeDark;
+
+            Settings.Theme = theme;
+
+            // Don't re-apply while just reflecting a loaded/imported setting
+            if (applyingSettings) return;
+
+            Application.SetColorMode(AppTheme.GetColorMode(theme));
+            AppTheme.ApplyLiveThemeChange();
         }
 
         #endregion Settings
@@ -1612,6 +1638,13 @@ namespace CymaticLabs.InfluxDB.Studio
 
             // Apply untrusted SSL
             allowUntrustedSSLToolStripMenuItem.Checked = Settings.AllowUntrustedSsl;
+
+            // Apply theme (suppress the restart prompt since this just reflects the loaded setting)
+            applyingSettings = true;
+            themeSystemMenuItem.Checked = Settings.Theme == AppSettings.ThemeSystem;
+            themeLightMenuItem.Checked = Settings.Theme == AppSettings.ThemeLight;
+            themeDarkMenuItem.Checked = Settings.Theme == AppSettings.ThemeDark;
+            applyingSettings = false;
         }
 
         #endregion Settings

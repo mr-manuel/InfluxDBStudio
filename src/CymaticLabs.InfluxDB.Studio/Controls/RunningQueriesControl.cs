@@ -34,10 +34,8 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
             InitializeComponent();
 
             // Set query editor styles, InfluxDB is SQL like, so use those
-            queryEditor.Styles[Style.Sql.Identifier].ForeColor = Color.Blue;
-            queryEditor.Styles[Style.Sql.String].ForeColor = Color.Red;
-            queryEditor.Styles[Style.Sql.Number].ForeColor = Color.Magenta;
-            queryEditor.Styles[Style.Sql.QuotedIdentifier].ForeColor = Color.Red;
+            AppTheme.ApplySqlEditorTheme(queryEditor);
+            AppTheme.ApplyListViewGridTheme(listView);
         }
 
         #endregion Constructors

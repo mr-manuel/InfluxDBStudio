@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,8 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
         public QueryResultsControl()
         {
             InitializeComponent();
+
+            AppTheme.ApplyListViewGridTheme(listView);
         }
 
         #endregion Constructors

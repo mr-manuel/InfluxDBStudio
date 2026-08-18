@@ -69,6 +69,9 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
             grantPrivilegeDialog = new GrantPrivilegeDialog();
             editPrivilegeDialog = new EditPrivilegeDialog();
 
+            AppTheme.ApplyListViewGridTheme(usersListView);
+            AppTheme.ApplyListViewGridTheme(grantsListView);
+
             // Set initial UI state
             UpdateUIState();
         }

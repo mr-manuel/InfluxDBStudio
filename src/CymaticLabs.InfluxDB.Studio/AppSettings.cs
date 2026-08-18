@@ -33,8 +33,26 @@ namespace CymaticLabs.InfluxDB.Studio
         /// </summary>
         public const string DateFormatMonth = "M/dd/yyyy";
 
+        /// <summary>
+        /// Theme setting that follows the Windows system light/dark setting.
+        /// </summary>
+        public const string ThemeSystem = "System";
+
+        /// <summary>
+        /// Theme setting that always uses the light theme.
+        /// </summary>
+        public const string ThemeLight = "Light";
+
+        /// <summary>
+        /// Theme setting that always uses the dark theme.
+        /// </summary>
+        public const string ThemeDark = "Dark";
+
         // Whether or not to allow untrusted SSL certificates
         bool allowUntrustedSsl = false;
+
+        // Internal app theme setting
+        string theme;
 
         // Internal app time format setting
         string timeFormat;
@@ -107,6 +125,25 @@ namespace CymaticLabs.InfluxDB.Studio
         }
 
         /// <summary>
+        /// Gets or sets the application's theme setting (<see cref="ThemeSystem"/>,
+        /// <see cref="ThemeLight"/>, or <see cref="ThemeDark"/>).
+        /// </summary>
+        public string Theme
+        {
+            get { return theme; }
+
+            set
+            {
+                if (theme != value)
+                {
+                    theme = value;
+                    Properties.Settings.Default.Theme = theme;
+                    Properties.Settings.Default.Save(); // update settings file
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the available InfluxDB connections.
         /// </summary>
         public List<InfluxDbConnection> Connections { get; set; }
@@ -121,6 +158,7 @@ namespace CymaticLabs.InfluxDB.Studio
             timeFormat = TimeFormat12Hour;
             dateFormat = DateFormatMonth;
             allowUntrustedSsl = false;
+            theme = ThemeSystem;
             Connections = new List<InfluxDbConnection>();
 
             // Set the version string
@@ -142,6 +180,7 @@ namespace CymaticLabs.InfluxDB.Studio
             timeFormat = Properties.Settings.Default.TimeFormat;
             dateFormat = Properties.Settings.Default.DateFormat;
             allowUntrustedSsl = Properties.Settings.Default.AllowUntrustedSsl;
+            theme = Properties.Settings.Default.Theme;
             LoadConnections();
         }
 
@@ -153,6 +192,7 @@ namespace CymaticLabs.InfluxDB.Studio
             Properties.Settings.Default.TimeFormat = TimeFormat;
             Properties.Settings.Default.DateFormat = DateFormat;
             Properties.Settings.Default.AllowUntrustedSsl = AllowUntrustedSsl;
+            Properties.Settings.Default.Theme = Theme;
             SaveConnections();
         }
 

@@ -234,11 +234,27 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
         // Handle drawing of custom tab
         private void ExtendedTabControl_DrawItem(object sender, DrawItemEventArgs e)
         {
-            // If selected change font color
-            var tab = TabPages[e.Index];
-            var isSelected = SelectedIndex == e.Index;
-            var brush = isSelected ? new SolidBrush(Color.FromArgb(0, 0, 0)) : new SolidBrush(Color.FromArgb(128, 128, 128));
-            if (isSelected) e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(212, 212, 212)), new RectangleF(e.Bounds.Left, e.Bounds.Top, e.Bounds.Width, e.Bounds.Height));
+            PaintTabItem(e.Graphics, e.Index);
+        }
+
+        // Paints one tab's fill, image, text and (if selected) focus indicator. Colors come from
+        // SystemColors so they automatically follow the app's light/dark/system theme. Shared by
+        // the native DrawItem callback and the WM_PAINT overlay below, which both need to produce
+        // an identical result.
+        private void PaintTabItem(Graphics g, int index)
+        {
+            var tab = TabPages[index];
+            var isSelected = SelectedIndex == index;
+            var bounds = GetTabRect(index);
+            var backColor = isSelected ? SystemColors.Window : SystemColors.Control;
+            var textColor = isSelected ? SystemColors.WindowText : SystemColors.GrayText;
+
+            using (var backBrush = new SolidBrush(backColor))
+            {
+                // Inflate upward: the native theme draws a 1-2px accent sliver directly above
+                // each tab's own GetTabRect bounds, outside what WM_DRAWITEM gives us to fill.
+                g.FillRectangle(backBrush, new Rectangle(bounds.X, bounds.Y - 2, bounds.Width, bounds.Height + 2));
+            }
 
             // Render tab image if present
             if (tab is ExtendedTabPage)
@@ -247,14 +263,57 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
 
                 if (image != null)
                 {
-                    e.Graphics.DrawImage(image, e.Bounds.Left + TabImageLeft, e.Bounds.Top + TabImageTop + (isSelected ? 0 : -2));
+                    g.DrawImage(image, bounds.Left + TabImageLeft, bounds.Top + TabImageTop + (isSelected ? 0 : -2));
                 }
             }
 
-            //This code will render a "x" mark at the end of the Tab caption.
-            if (ShowTabCloseArea) e.Graphics.DrawString("x", e.Font, Brushes.Black, e.Bounds.Right - TabCloseWidth, e.Bounds.Top + 4);
-            e.Graphics.DrawString(tab.Text, e.Font, brush, e.Bounds.Left + TabLeadingOffset + TabImageLeft + TabImageWidth, e.Bounds.Top + 4);
-            e.DrawFocusRectangle();
+            // TextRenderer (GDI) avoids the ClearType color-fringing that Graphics.DrawString (GDI+)
+            // produces when drawing anti-aliased text into an owner-draw item's backing surface -
+            // barely visible on a light background, but glaring on a dark one.
+            if (ShowTabCloseArea) TextRenderer.DrawText(g, "x", Font, new Point(bounds.Right - TabCloseWidth, bounds.Top + 4), textColor);
+            TextRenderer.DrawText(g, tab.Text, Font, new Point(bounds.Left + TabLeadingOffset + TabImageLeft + TabImageWidth, bounds.Top + 4), textColor);
+
+            if (isSelected) ControlPaint.DrawFocusRectangle(g, bounds);
+        }
+
+        // Owner-drawn tabs (DrawMode = OwnerDrawFixed) opt this control out of WinForms'
+        // automatic dark mode theming for the native tab strip/frame chrome: a light sliver
+        // wherever we don't paint (empty control, area right of the last tab), plus a light
+        // border/accent the native theme still draws around each tab regardless of our
+        // owner-draw fill. TabControl doesn't route its native chrome through the managed
+        // OnPaint pipeline, so repaint every tab (masking that native border) and the leftover
+        // area ourselves, right after the native WM_PAINT completes.
+        private const int WM_PAINT = 0x000F;
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg != WM_PAINT || !Application.IsDarkModeEnabled) return;
+
+            using (var g = Graphics.FromHwnd(Handle))
+            {
+                if (TabCount == 0)
+                {
+                    using (var brush = new SolidBrush(SystemColors.Control)) g.FillRectangle(brush, ClientRectangle);
+                    return;
+                }
+
+                using (var brush = new SolidBrush(SystemColors.Control))
+                {
+                    for (var i = 0; i < TabCount; i++) PaintTabItem(g, i);
+
+                    var lastTabRect = GetTabRect(TabCount - 1);
+                    using (var pen = new Pen(SystemColors.Control))
+                    {
+                        // Strip to the right of the last tab, and the native frame border drawn
+                        // around the whole control's edge - neither is covered by an individual
+                        // tab's bounds.
+                        g.FillRectangle(brush, new Rectangle(lastTabRect.Right, 0, Width - lastTabRect.Right, lastTabRect.Bottom + 2));
+                        g.DrawRectangle(pen, 0, 0, Width - 1, Height - 1);
+                    }
+                }
+            }
         }
 
         #endregion Event Handlers

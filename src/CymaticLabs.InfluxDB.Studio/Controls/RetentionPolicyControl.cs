@@ -43,6 +43,8 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
         {
             InitializeComponent();
             policyDialog = new RetentionPolicyDialog();
+
+            AppTheme.ApplyListViewGridTheme(listView);
         }
 
         #endregion Constructors

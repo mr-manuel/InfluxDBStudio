@@ -36,6 +36,8 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
         public MeasurementControl()
         {
             InitializeComponent();
+
+            AppTheme.ApplyListViewGridTheme(listView);
         }
 
         #endregion Constructors
