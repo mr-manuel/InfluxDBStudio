@@ -45,6 +45,9 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
         public CreateContinuousQueryDialog()
         {
             InitializeComponent();
+            AppTheme.ApplyModernSpacing(this);
+            AppTheme.ApplyDarkTitleBar(this);
+            AppTheme.ApplyButtonsTheme(this);
 
             // Populate fill type drop down
             foreach (var fillType in Enum.GetValues(typeof(InfluxDbFillTypes)))

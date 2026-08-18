@@ -62,9 +62,12 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
         public ManageConnectionsDialog()
         {
             InitializeComponent();
+            AppTheme.ApplyModernSpacing(this);
+            AppTheme.ApplyDarkTitleBar(this);
             connectionDialog = new ConnectionDialog();
 
             AppTheme.ApplyListViewGridTheme(listView);
+            AppTheme.ApplyButtonsTheme(this);
         }
 
         #endregion Constructors

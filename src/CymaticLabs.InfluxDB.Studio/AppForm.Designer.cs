@@ -51,9 +51,11 @@
             this.showQueriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timeFormatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timeFormatComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.timeFormat12HourMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timeFormat24HourMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateFormatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dateFormatComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.dateFormatMonthMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dateFormatDayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allowUntrustedSSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.themeSystemMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -259,10 +261,10 @@
             // settingsToolStripMenuItem
             //
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.themeToolStripMenuItem,
             this.timeFormatToolStripMenuItem,
             this.dateFormatToolStripMenuItem,
-            this.allowUntrustedSSLToolStripMenuItem,
-            this.themeToolStripMenuItem});
+            this.allowUntrustedSSLToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -270,42 +272,50 @@
             // timeFormatToolStripMenuItem
             //
             this.timeFormatToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.timeFormatComboBox});
+            this.timeFormat12HourMenuItem,
+            this.timeFormat24HourMenuItem});
             this.timeFormatToolStripMenuItem.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Time;
             this.timeFormatToolStripMenuItem.Name = "timeFormatToolStripMenuItem";
             this.timeFormatToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.timeFormatToolStripMenuItem.Text = "Time Format";
             //
-            // timeFormatComboBox
+            // timeFormat12HourMenuItem
             //
-            this.timeFormatComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.timeFormatComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-            this.timeFormatComboBox.Items.AddRange(new object[] {
-            "2:30:45 PM  12 Hour",
-            "     14:30:45  24 Hour"});
-            this.timeFormatComboBox.Name = "timeFormatComboBox";
-            this.timeFormatComboBox.Size = new System.Drawing.Size(136, 23);
-            this.timeFormatComboBox.SelectedIndexChanged += new System.EventHandler(this.timeFormatComboBox_SelectedIndexChanged);
+            this.timeFormat12HourMenuItem.Name = "timeFormat12HourMenuItem";
+            this.timeFormat12HourMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.timeFormat12HourMenuItem.Text = "2:30:45 PM  (12 Hour)";
+            this.timeFormat12HourMenuItem.Click += new System.EventHandler(this.timeFormatMenuItem_Click);
+            //
+            // timeFormat24HourMenuItem
+            //
+            this.timeFormat24HourMenuItem.Name = "timeFormat24HourMenuItem";
+            this.timeFormat24HourMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.timeFormat24HourMenuItem.Text = "14:30:45  (24 Hour)";
+            this.timeFormat24HourMenuItem.Click += new System.EventHandler(this.timeFormatMenuItem_Click);
             //
             // dateFormatToolStripMenuItem
             //
             this.dateFormatToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dateFormatComboBox});
+            this.dateFormatMonthMenuItem,
+            this.dateFormatDayMenuItem});
             this.dateFormatToolStripMenuItem.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Date;
             this.dateFormatToolStripMenuItem.Name = "dateFormatToolStripMenuItem";
             this.dateFormatToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dateFormatToolStripMenuItem.Text = "Date Format";
             //
-            // dateFormatComboBox
+            // dateFormatMonthMenuItem
             //
-            this.dateFormatComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dateFormatComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-            this.dateFormatComboBox.Items.AddRange(new object[] {
-            "12/31/2016  mm/dd/yyyy",
-            "31/12/2016  dd/mm/yyyy "});
-            this.dateFormatComboBox.Name = "dateFormatComboBox";
-            this.dateFormatComboBox.Size = new System.Drawing.Size(160, 23);
-            this.dateFormatComboBox.SelectedIndexChanged += new System.EventHandler(this.dateFormatComboBox_SelectedIndexChanged);
+            this.dateFormatMonthMenuItem.Name = "dateFormatMonthMenuItem";
+            this.dateFormatMonthMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dateFormatMonthMenuItem.Text = "12/31/2016  (mm/dd/yyyy)";
+            this.dateFormatMonthMenuItem.Click += new System.EventHandler(this.dateFormatMenuItem_Click);
+            //
+            // dateFormatDayMenuItem
+            //
+            this.dateFormatDayMenuItem.Name = "dateFormatDayMenuItem";
+            this.dateFormatDayMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dateFormatDayMenuItem.Text = "31/12/2016  (dd/mm/yyyy)";
+            this.dateFormatDayMenuItem.Click += new System.EventHandler(this.dateFormatMenuItem_Click);
             //
             // allowUntrustedSSLToolStripMenuItem
             //
@@ -643,6 +653,7 @@
             // splitContainer
             //
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer.Location = new System.Drawing.Point(0, 49);
             this.splitContainer.Name = "splitContainer";
             //
@@ -1059,9 +1070,11 @@
         private System.Windows.Forms.ToolStripMenuItem backFillToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem timeFormatToolStripMenuItem;
-        private System.Windows.Forms.ToolStripComboBox timeFormatComboBox;
+        private System.Windows.Forms.ToolStripMenuItem timeFormat12HourMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem timeFormat24HourMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateFormatToolStripMenuItem;
-        private System.Windows.Forms.ToolStripComboBox dateFormatComboBox;
+        private System.Windows.Forms.ToolStripMenuItem dateFormatMonthMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dateFormatDayMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allowUntrustedSSLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem themeSystemMenuItem;

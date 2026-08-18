@@ -106,26 +106,52 @@ namespace CymaticLabs.InfluxDB.Studio
         /// <summary>
         /// Applies a theme change to every open window, live: WinForms' own SystemColors-based
         /// controls pick up <see cref="Application.SetColorMode"/> immediately, but a window's
-        /// title bar is only themed at creation time, and some controls (see <see cref="RefreshTree"/>)
+        /// title bar needs the explicit <see cref="DwmSetWindowAttribute"/> call re-applied (see
+        /// <see cref="ApplyDarkTitleBar"/>), and some controls (see <see cref="RefreshTree"/>)
         /// cache the mode at handle-creation time too - so those are handled explicitly here.
         /// Covers every form in <see cref="Application.OpenForms"/>, not just the active one -
         /// dialogs that were already shown once (e.g. the connections manager, auto-shown at
-        /// startup) are separate top-level windows with their own stale handles. Call after
-        /// <see cref="Application.SetColorMode"/>.
+        /// startup) are separate top-level windows with their own stale handles. Note this only
+        /// reaches non-modal/currently-visible forms - a modal dialog isn't in that collection
+        /// while it's not showing, which is why every dialog also wires <see cref="ApplyDarkTitleBar"/>
+        /// itself, so its title bar is correct the moment it's shown regardless of what the theme
+        /// was when the app started. Call after <see cref="Application.SetColorMode"/>.
         /// </summary>
         public static void ApplyLiveThemeChange()
         {
-            var useDark = Application.IsDarkModeEnabled ? 1 : 0;
-
             foreach (Form form in Application.OpenForms)
             {
-                if (form.IsHandleCreated)
-                {
-                    DwmSetWindowAttribute(form.Handle, DwmwaUseImmersiveDarkMode, ref useDark, sizeof(int));
-                }
-
+                ApplyDarkTitleBarNow(form);
                 RefreshTree(form);
             }
+        }
+
+        /// <summary>
+        /// Keeps a window's native title bar in sync with the current color mode. Unlike
+        /// SystemColors-based client-area rendering, a title bar is DWM/non-client chrome that
+        /// WinForms does not automatically re-theme for every window - reliably only at that
+        /// window's own handle-creation time, via the explicit call this wires up. That covers a
+        /// dialog shown for the first time at any point (not just ones open at app startup), which
+        /// <see cref="ApplyLiveThemeChange"/>'s <see cref="Application.OpenForms"/> walk cannot
+        /// reach on its own: a modal dialog (<see cref="Form.ShowDialog()"/>) is only in that
+        /// collection while actually showing, and the user can't be switching theme from the main
+        /// window's menu while a modal child has focus - so without this, a dialog created after
+        /// startup would only ever get whatever title bar mode existed when its handle happened to
+        /// be created, not necessarily the theme active when it's actually shown. Call once, from
+        /// a dialog's constructor.
+        /// </summary>
+        public static void ApplyDarkTitleBar(Form form)
+        {
+            form.HandleCreated += (s, e) => ApplyDarkTitleBarNow(form);
+            if (form.IsHandleCreated) ApplyDarkTitleBarNow(form);
+        }
+
+        private static void ApplyDarkTitleBarNow(Form form)
+        {
+            if (!form.IsHandleCreated) return;
+
+            var useDark = Application.IsDarkModeEnabled ? 1 : 0;
+            DwmSetWindowAttribute(form.Handle, DwmwaUseImmersiveDarkMode, ref useDark, sizeof(int));
         }
 
         // Control.RecreateHandle() - protected, so it's only reachable via reflection from here.
@@ -137,24 +163,16 @@ namespace CymaticLabs.InfluxDB.Studio
         //    as part of their built-in dark-mode support, so a live mode change needs their handle
         //    recreated (safe: WinForms replays their Nodes/Items/TabPages into the new handle,
         //    nothing is lost).
-        //  - Button also renders natively (via visual styles) and, unlike the above, recreating
-        //    its handle does not pick up the new mode - not even recreating the whole parent
-        //    form's handle does. Forcing flat style with explicit colors sidesteps native
-        //    rendering entirely, trading the native 3D look for one that reliably follows theme.
         //  - Scintilla bakes in a fixed RGB when a color is set rather than tracking the color
         //    mode, so its styles need to be re-applied explicitly.
-        //  - Everything else (Panel, Label, MenuStrip, ToolStrip, our own owner-drawn
-        //    ExtendedTabControl, ...) already reads SystemColors fresh on every paint and just
-        //    needs a repaint.
+        //  - Everything else (Panel, Label, MenuStrip, ToolStrip, Button once flattened via
+        //    ApplyButtonsTheme, our own owner-drawn ExtendedTabControl, ...) already reads
+        //    SystemColors fresh on every paint and just needs a repaint.
         private static void RefreshTree(Control control)
         {
             if (control is Scintilla scintilla)
             {
                 ApplySqlEditorTheme(scintilla);
-            }
-            else if (control is Button button)
-            {
-                ApplyButtonTheme(button);
             }
             else if ((control is TreeView || control is ListView || control is TabControl) && control.IsHandleCreated)
             {
@@ -167,47 +185,129 @@ namespace CymaticLabs.InfluxDB.Studio
         }
 
         /// <summary>
-        /// Applies theme-aware colors to a <see cref="Button"/>. Buttons render via native visual
-        /// styles, which - unlike most other controls - do not pick up a live color mode change no
-        /// matter how the control's handle is recreated, so flat style with explicit colors is
-        /// used instead of the native look whenever dark mode is active.
+        /// Flattens every <see cref="Button"/> in a control tree (a form/dialog, called once from
+        /// its constructor). Buttons default to native visual-style rendering, which - unlike most
+        /// other controls - does not track a live color mode change at all (not even via handle
+        /// recreation): it would render correctly for the mode the app started in, but not after
+        /// switching theme without restarting. Flat style with <see cref="SystemColors"/> sidesteps
+        /// native rendering entirely, so buttons behave like the rest of the flattened chrome
+        /// (menus, toolbars) - a plain repaint is enough to follow a live theme change, no reactive
+        /// re-application needed. A disabled button is a separate problem: WinForms' built-in
+        /// disabled-button text is drawn "etched" - twice, offset by a pixel, in two fixed shades -
+        /// which reads fine on a light face but loses almost all contrast on a dark one, and does
+        /// not honor <see cref="Control.ForeColor"/> at all (it computes its own colors), so
+        /// setting ForeColor cannot fix it. Repainting the whole disabled button here, the same way
+        /// the ListView header/hover paint is done, replaces that unreadable native rendering
+        /// outright instead of trying to work around it.
         /// </summary>
-        public static void ApplyButtonTheme(Button button)
+        public static void ApplyButtonsTheme(Control root)
         {
-            if (Application.IsDarkModeEnabled)
+            if (root is Button button)
             {
                 button.UseVisualStyleBackColor = false;
                 button.FlatStyle = FlatStyle.Flat;
                 button.BackColor = SystemColors.Control;
                 button.ForeColor = SystemColors.ControlText;
                 button.FlatAppearance.BorderColor = SystemColors.ControlDark;
+                button.FlatAppearance.MouseOverBackColor = SystemColors.ControlLight;
+                button.FlatAppearance.MouseDownBackColor = SystemColors.ControlDark;
+
+                button.Paint += (s, e) =>
+                {
+                    if (button.Enabled) return;
+
+                    using (var backBrush = new SolidBrush(button.BackColor))
+                    {
+                        e.Graphics.FillRectangle(backBrush, button.ClientRectangle);
+                    }
+
+                    using (var pen = new Pen(SystemColors.ControlDark))
+                    {
+                        e.Graphics.DrawRectangle(pen, Rectangle.Inflate(button.ClientRectangle, -1, -1));
+                    }
+
+                    TextRenderer.DrawText(e.Graphics, button.Text, button.Font, button.ClientRectangle, SystemColors.GrayText,
+                        TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis);
+                };
             }
-            else
-            {
-                button.FlatStyle = FlatStyle.System;
-                button.UseVisualStyleBackColor = true;
-            }
+
+            foreach (Control child in root.Controls) ApplyButtonsTheme(child);
+        }
+
+        // How much more breathing room dialogs get on top of their normal AutoScaleMode.Font
+        // scaling (see ApplyModernSpacing). 1.0 = untouched.
+        private const float ModernSpacingScale = 1.12f;
+
+        /// <summary>
+        /// Gives a dialog a bit more breathing room than its hand-positioned Designer layout has
+        /// by default. Every dialog in the app uses absolute Location/Size coordinates (no
+        /// TableLayoutPanel anywhere) with <see cref="Form.AutoScaleMode"/> set to
+        /// <see cref="AutoScaleMode.Font"/> - which already rescales that whole layout
+        /// proportionally to match the current font's actual metrics (see the Segoe UI switch in
+        /// Program.cs) before this ever runs. Rewriting every control's coordinates by hand across
+        /// ~15 dialogs to add more padding would be substantial, hard-to-verify surgery for a
+        /// cosmetic want. <see cref="Control.Scale(SizeF)"/> gets a similar effect for free and
+        /// risk-free instead: it multiplies every child control's position, size, and font by a
+        /// fixed factor, so the relative layout (nothing overlaps anything else) is preserved
+        /// exactly - just uniformly larger, with proportionally bigger gaps and click targets.
+        /// Call once, from a dialog's constructor, right after InitializeComponent().
+        /// </summary>
+        public static void ApplyModernSpacing(Form dialog)
+        {
+            dialog.Scale(new SizeF(ModernSpacingScale, ModernSpacingScale));
         }
 
         /// <summary>
         /// Replaces a <see cref="ListView"/>'s native <see cref="ListView.GridLines"/> and column
-        /// header painting with manually-drawn versions. GridLines paints with a fixed native
-        /// color that WinForms' dark mode does not touch, so it stays a harsh light gray and
-        /// dominates a dark background regardless of theme. The column header is worse: it's a
-        /// distinct native child window (SysHeader32) that WinForms' dark mode support does not
-        /// reach at all, so it keeps painting black text on a light background even once the rest
-        /// of the list has gone dark - unreadable. <see cref="SetWindowTheme"/> with Explorer's
-        /// "DarkMode_ItemsView" pseudo-theme (the usual trick for this) does not reliably recolor
-        /// the header's text on every Windows build, so instead the header is owner-drawn from
-        /// scratch here with theme-aware colors, the same approach already used for the grid
-        /// lines and for everything else <see cref="RefreshTree"/> just repaints.
+        /// header painting with manually-drawn versions, and adds a row hover highlight. GridLines
+        /// paints with a fixed native color that WinForms' dark mode does not touch, so it stays a
+        /// harsh light gray and dominates a dark background regardless of theme. The column header
+        /// is worse: it's a distinct native child window (SysHeader32) that WinForms' dark mode
+        /// support does not reach at all, so it keeps painting black text on a light background
+        /// even once the rest of the list has gone dark - unreadable. <see cref="SetWindowTheme"/>
+        /// with Explorer's "DarkMode_ItemsView" pseudo-theme (the usual trick for this) does not
+        /// reliably recolor the header's text on every Windows build, so instead the header is
+        /// owner-drawn from scratch here with theme-aware colors, the same approach already used
+        /// for the grid lines and for everything else <see cref="RefreshTree"/> just repaints. The
+        /// hover highlight is purely cosmetic (native ListView has none), added the same way.
         /// </summary>
         public static void ApplyListViewGridTheme(ListView listView)
         {
             listView.GridLines = false;
             listView.OwnerDraw = true;
             listView.DrawItem += (s, e) => e.DrawDefault = true;
-            listView.DrawSubItem += (s, e) => e.DrawDefault = true;
+
+            var hoveredIndex = -1;
+
+            void SetHovered(int index)
+            {
+                if (hoveredIndex == index) return;
+                var previous = hoveredIndex;
+                hoveredIndex = index;
+                if (previous >= 0 && previous < listView.Items.Count) listView.Invalidate(listView.Items[previous].Bounds);
+                if (index >= 0 && index < listView.Items.Count) listView.Invalidate(listView.Items[index].Bounds);
+            }
+
+            listView.MouseMove += (s, e) => SetHovered(listView.HitTest(e.Location).Item?.Index ?? -1);
+            listView.MouseLeave += (s, e) => SetHovered(-1);
+
+            listView.DrawSubItem += (s, e) =>
+            {
+                if (e.ItemIndex != hoveredIndex || e.Item.Selected)
+                {
+                    e.DrawDefault = true;
+                    return;
+                }
+
+                using (var hoverBrush = new SolidBrush(SystemColors.ControlLight))
+                {
+                    e.Graphics.FillRectangle(hoverBrush, e.Bounds);
+                }
+
+                var textBounds = Rectangle.Inflate(e.Bounds, -3, 0);
+                TextRenderer.DrawText(e.Graphics, e.SubItem.Text, listView.Font, textBounds, SystemColors.ControlText,
+                    TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis | TextFormatFlags.NoPrefix | TextFormatFlags.Left);
+            };
 
             listView.DrawColumnHeader += (s, e) =>
             {

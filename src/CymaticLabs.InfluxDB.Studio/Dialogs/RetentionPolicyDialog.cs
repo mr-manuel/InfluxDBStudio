@@ -73,6 +73,9 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
         public RetentionPolicyDialog()
         {
             InitializeComponent();
+            AppTheme.ApplyModernSpacing(this);
+            AppTheme.ApplyDarkTitleBar(this);
+            AppTheme.ApplyButtonsTheme(this);
         }
 
         #endregion Constructors

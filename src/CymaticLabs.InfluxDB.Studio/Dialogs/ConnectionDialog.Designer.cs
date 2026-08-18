@@ -151,7 +151,7 @@
             // databaseInstructions
             // 
             this.databaseInstructions.AutoSize = true;
-            this.databaseInstructions.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.databaseInstructions.ForeColor = System.Drawing.SystemColors.GrayText;
             this.databaseInstructions.Location = new System.Drawing.Point(76, 143);
             this.databaseInstructions.Name = "databaseInstructions";
             this.databaseInstructions.Size = new System.Drawing.Size(356, 26);
@@ -162,7 +162,7 @@
             // addressInstructions
             // 
             this.addressInstructions.AutoSize = true;
-            this.addressInstructions.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.addressInstructions.ForeColor = System.Drawing.SystemColors.GrayText;
             this.addressInstructions.Location = new System.Drawing.Point(76, 83);
             this.addressInstructions.Name = "addressInstructions";
             this.addressInstructions.Size = new System.Drawing.Size(233, 13);
@@ -172,7 +172,7 @@
             // nameInstructions
             // 
             this.nameInstructions.AutoSize = true;
-            this.nameInstructions.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.nameInstructions.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nameInstructions.Location = new System.Drawing.Point(76, 23);
             this.nameInstructions.Name = "nameInstructions";
             this.nameInstructions.Size = new System.Drawing.Size(344, 13);

@@ -222,16 +222,28 @@ namespace CymaticLabs.InfluxDB.Studio
             Settings.AllowUntrustedSsl = allowUntrustedSsl;
         }
 
-        // Handles Settings -> Time Format -> change of time format
-        private void timeFormatComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        // Handles Settings -> Time Format -> 12/24 Hour selection
+        private void timeFormatMenuItem_Click(object sender, EventArgs e)
         {
-            Settings.TimeFormat = timeFormatComboBox.SelectedIndex == 0 ? AppSettings.TimeFormat12Hour : AppSettings.TimeFormat24Hour;
+            var format = sender == timeFormat24HourMenuItem ? AppSettings.TimeFormat24Hour : AppSettings.TimeFormat12Hour;
+
+            // Reflect the selection as a radio-style checkmark, same as Settings -> Theme
+            timeFormat12HourMenuItem.Checked = format == AppSettings.TimeFormat12Hour;
+            timeFormat24HourMenuItem.Checked = format == AppSettings.TimeFormat24Hour;
+
+            Settings.TimeFormat = format;
         }
 
-        // Handles Settings -> Date Format -> change of date format
-        private void dateFormatComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        // Handles Settings -> Date Format -> month/day-first selection
+        private void dateFormatMenuItem_Click(object sender, EventArgs e)
         {
-            Settings.DateFormat = dateFormatComboBox.SelectedIndex == 0 ? AppSettings.DateFormatMonth : AppSettings.DateFormatDay;
+            var format = sender == dateFormatDayMenuItem ? AppSettings.DateFormatDay : AppSettings.DateFormatMonth;
+
+            // Reflect the selection as a radio-style checkmark, same as Settings -> Theme
+            dateFormatMonthMenuItem.Checked = format == AppSettings.DateFormatMonth;
+            dateFormatDayMenuItem.Checked = format == AppSettings.DateFormatDay;
+
+            Settings.DateFormat = format;
         }
 
         // Handles Settings -> Theme -> System/Light/Dark selection
@@ -1612,29 +1624,13 @@ namespace CymaticLabs.InfluxDB.Studio
         // Load application settings
         void ApplySettings()
         {
-            // Set time format
-            if (Settings.TimeFormat == AppSettings.TimeFormat12Hour)
-            {
-                // 12 hour
-                timeFormatComboBox.SelectedIndex = 0;
-            }
-            else
-            {
-                // 24 hour
-                timeFormatComboBox.SelectedIndex = 1;
-            }
+            // Set time format, reflected as a radio-style checkmark, same as Settings -> Theme
+            timeFormat12HourMenuItem.Checked = Settings.TimeFormat == AppSettings.TimeFormat12Hour;
+            timeFormat24HourMenuItem.Checked = Settings.TimeFormat == AppSettings.TimeFormat24Hour;
 
-            // Set date format
-            if (Settings.DateFormat == AppSettings.DateFormatMonth)
-            {
-                // month-first
-                dateFormatComboBox.SelectedIndex = 0;
-            }
-            else
-            {
-                // day-first
-                dateFormatComboBox.SelectedIndex = 1;
-            }
+            // Set date format, reflected as a radio-style checkmark, same as Settings -> Theme
+            dateFormatMonthMenuItem.Checked = Settings.DateFormat == AppSettings.DateFormatMonth;
+            dateFormatDayMenuItem.Checked = Settings.DateFormat == AppSettings.DateFormatDay;
 
             // Apply untrusted SSL
             allowUntrustedSSLToolStripMenuItem.Checked = Settings.AllowUntrustedSsl;

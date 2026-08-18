@@ -58,6 +58,9 @@ namespace CymaticLabs.InfluxDB.Studio.Dialogs
         public GrantPrivilegeDialog()
         {
             InitializeComponent();
+            AppTheme.ApplyModernSpacing(this);
+            AppTheme.ApplyDarkTitleBar(this);
+            AppTheme.ApplyButtonsTheme(this);
 
             // Setup the privilege drop down with values dynamically
             foreach (InfluxDbPrivileges p in Enum.GetValues(typeof(InfluxDbPrivileges)))
