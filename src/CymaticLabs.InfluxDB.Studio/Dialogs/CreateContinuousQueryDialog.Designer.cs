@@ -118,26 +118,29 @@
             this.groupBox.TabIndex = 2;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Details";
-            // 
+            //
             // resampleForInfo
-            // 
+            //
+            this.resampleForInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.resampleForInfo.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Info;
             this.resampleForInfo.Location = new System.Drawing.Point(562, 172);
             this.resampleForInfo.Name = "resampleForInfo";
             this.resampleForInfo.Size = new System.Drawing.Size(16, 16);
             this.resampleForInfo.TabIndex = 14;
             this.resampleForInfo.TabStop = false;
-            // 
+            //
             // resampleForTextBox
-            // 
+            //
+            this.resampleForTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.resampleForTextBox.Enabled = false;
             this.resampleForTextBox.Location = new System.Drawing.Point(453, 169);
             this.resampleForTextBox.Name = "resampleForTextBox";
             this.resampleForTextBox.Size = new System.Drawing.Size(103, 22);
             this.resampleForTextBox.TabIndex = 9;
-            // 
+            //
             // resampleForLabel
-            // 
+            //
+            this.resampleForLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.resampleForLabel.AutoSize = true;
             this.resampleForLabel.Enabled = false;
             this.resampleForLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -164,18 +167,20 @@
             this.resampleEveryInfo.Size = new System.Drawing.Size(16, 16);
             this.resampleEveryInfo.TabIndex = 11;
             this.resampleEveryInfo.TabStop = false;
-            // 
+            //
             // tagsInfo
-            // 
+            //
+            this.tagsInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tagsInfo.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Info;
             this.tagsInfo.Location = new System.Drawing.Point(562, 138);
             this.tagsInfo.Name = "tagsInfo";
             this.tagsInfo.Size = new System.Drawing.Size(16, 16);
             this.tagsInfo.TabIndex = 11;
             this.tagsInfo.TabStop = false;
-            // 
+            //
             // fillTypeInfo
-            // 
+            //
+            this.fillTypeInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.fillTypeInfo.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Info;
             this.fillTypeInfo.Location = new System.Drawing.Point(485, 101);
             this.fillTypeInfo.Name = "fillTypeInfo";
@@ -231,17 +236,19 @@
             this.destinationLabel.Size = new System.Drawing.Size(63, 13);
             this.destinationLabel.TabIndex = 9;
             this.destinationLabel.Text = "Destination:";
-            // 
+            //
             // sourceComboBox
-            // 
+            //
+            this.sourceComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sourceComboBox.FormattingEnabled = true;
             this.sourceComboBox.Location = new System.Drawing.Point(376, 61);
             this.sourceComboBox.Name = "sourceComboBox";
             this.sourceComboBox.Size = new System.Drawing.Size(180, 24);
             this.sourceComboBox.TabIndex = 3;
-            // 
+            //
             // fillTypeLabel
-            // 
+            //
+            this.fillTypeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.fillTypeLabel.AutoSize = true;
             this.fillTypeLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fillTypeLabel.Location = new System.Drawing.Point(311, 103);
@@ -249,9 +256,10 @@
             this.fillTypeLabel.Size = new System.Drawing.Size(49, 13);
             this.fillTypeLabel.TabIndex = 3;
             this.fillTypeLabel.Text = "Fill Type:";
-            // 
+            //
             // sourceLabel
-            // 
+            //
+            this.sourceLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sourceLabel.AutoSize = true;
             this.sourceLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sourceLabel.Location = new System.Drawing.Point(311, 66);
@@ -274,9 +282,11 @@
             this.intervalTextBox.Name = "intervalTextBox";
             this.intervalTextBox.Size = new System.Drawing.Size(103, 22);
             this.intervalTextBox.TabIndex = 4;
-            // 
+            //
             // tagsTextBox
-            // 
+            //
+            this.tagsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tagsTextBox.Location = new System.Drawing.Point(84, 135);
             this.tagsTextBox.Name = "tagsTextBox";
             this.tagsTextBox.Size = new System.Drawing.Size(472, 22);
@@ -288,18 +298,20 @@
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(180, 22);
             this.nameTextBox.TabIndex = 1;
-            // 
+            //
             // fillTypeComboBox
-            // 
+            //
+            this.fillTypeComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.fillTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.fillTypeComboBox.FormattingEnabled = true;
             this.fillTypeComboBox.Location = new System.Drawing.Point(376, 98);
             this.fillTypeComboBox.Name = "fillTypeComboBox";
             this.fillTypeComboBox.Size = new System.Drawing.Size(103, 24);
             this.fillTypeComboBox.TabIndex = 5;
-            // 
+            //
             // databaseValue
-            // 
+            //
+            this.databaseValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.databaseValue.AutoSize = true;
             this.databaseValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.databaseValue.Location = new System.Drawing.Point(373, 32);
@@ -307,9 +319,10 @@
             this.databaseValue.Size = new System.Drawing.Size(11, 13);
             this.databaseValue.TabIndex = 0;
             this.databaseValue.Text = "-";
-            // 
+            //
             // databaseLabel
-            // 
+            //
+            this.databaseLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.databaseLabel.AutoSize = true;
             this.databaseLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.databaseLabel.Location = new System.Drawing.Point(311, 32);
@@ -438,9 +451,10 @@
             this.destinationInfo.Size = new System.Drawing.Size(16, 16);
             this.destinationInfo.TabIndex = 11;
             this.destinationInfo.TabStop = false;
-            // 
+            //
             // sourceInfo
-            // 
+            //
+            this.sourceInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sourceInfo.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Info;
             this.sourceInfo.Location = new System.Drawing.Point(562, 66);
             this.sourceInfo.Name = "sourceInfo";

@@ -141,9 +141,10 @@
             this.groupBox.TabIndex = 15;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Details";
-            // 
+            //
             // sourceInfo
-            // 
+            //
+            this.sourceInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sourceInfo.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Info;
             this.sourceInfo.Location = new System.Drawing.Point(562, 64);
             this.sourceInfo.Name = "sourceInfo";
@@ -159,9 +160,10 @@
             this.destinationInfo.Size = new System.Drawing.Size(16, 16);
             this.destinationInfo.TabIndex = 14;
             this.destinationInfo.TabStop = false;
-            // 
+            //
             // toDateTimePicker
-            // 
+            //
+            this.toDateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.toDateTimePicker.CustomFormat = "d/MM/yyyy @ hh:mm:ss tt";
             this.toDateTimePicker.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -179,27 +181,30 @@
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.Size = new System.Drawing.Size(180, 20);
             this.fromDateTimePicker.TabIndex = 4;
-            // 
+            //
             // filtersInfo
-            // 
+            //
+            this.filtersInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.filtersInfo.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Info;
             this.filtersInfo.Location = new System.Drawing.Point(562, 178);
             this.filtersInfo.Name = "filtersInfo";
             this.filtersInfo.Size = new System.Drawing.Size(16, 16);
             this.filtersInfo.TabIndex = 11;
             this.filtersInfo.TabStop = false;
-            // 
+            //
             // tagsInfo
-            // 
+            //
+            this.tagsInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tagsInfo.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Info;
             this.tagsInfo.Location = new System.Drawing.Point(562, 217);
             this.tagsInfo.Name = "tagsInfo";
             this.tagsInfo.Size = new System.Drawing.Size(16, 16);
             this.tagsInfo.TabIndex = 11;
             this.tagsInfo.TabStop = false;
-            // 
+            //
             // fillTypeInfo
-            // 
+            //
+            this.fillTypeInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.fillTypeInfo.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Info;
             this.fillTypeInfo.Location = new System.Drawing.Point(485, 101);
             this.fillTypeInfo.Name = "fillTypeInfo";
@@ -263,17 +268,19 @@
             this.destinationLabel.Size = new System.Drawing.Size(63, 13);
             this.destinationLabel.TabIndex = 9;
             this.destinationLabel.Text = "Destination:";
-            // 
+            //
             // sourceComboBox
-            // 
+            //
+            this.sourceComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sourceComboBox.FormattingEnabled = true;
             this.sourceComboBox.Location = new System.Drawing.Point(376, 61);
             this.sourceComboBox.Name = "sourceComboBox";
             this.sourceComboBox.Size = new System.Drawing.Size(180, 24);
             this.sourceComboBox.TabIndex = 1;
-            // 
+            //
             // toTimeLabel
-            // 
+            //
+            this.toTimeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.toTimeLabel.AutoSize = true;
             this.toTimeLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toTimeLabel.Location = new System.Drawing.Point(311, 143);
@@ -281,9 +288,10 @@
             this.toTimeLabel.Size = new System.Drawing.Size(49, 13);
             this.toTimeLabel.TabIndex = 3;
             this.toTimeLabel.Text = "To Time:";
-            // 
+            //
             // fillTypeLabel
-            // 
+            //
+            this.fillTypeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.fillTypeLabel.AutoSize = true;
             this.fillTypeLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fillTypeLabel.Location = new System.Drawing.Point(311, 103);
@@ -291,9 +299,10 @@
             this.fillTypeLabel.Size = new System.Drawing.Size(49, 13);
             this.fillTypeLabel.TabIndex = 3;
             this.fillTypeLabel.Text = "Fill Type:";
-            // 
+            //
             // sourceLabel
-            // 
+            //
+            this.sourceLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.sourceLabel.AutoSize = true;
             this.sourceLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sourceLabel.Location = new System.Drawing.Point(311, 66);
@@ -301,9 +310,11 @@
             this.sourceLabel.Size = new System.Drawing.Size(44, 13);
             this.sourceLabel.TabIndex = 3;
             this.sourceLabel.Text = "Source:";
-            // 
+            //
             // filtersTextBox
-            // 
+            //
+            this.filtersTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.filtersTextBox.Location = new System.Drawing.Point(84, 175);
             this.filtersTextBox.Name = "filtersTextBox";
             this.filtersTextBox.Size = new System.Drawing.Size(472, 22);
@@ -315,16 +326,19 @@
             this.intervalTextBox.Name = "intervalTextBox";
             this.intervalTextBox.Size = new System.Drawing.Size(103, 22);
             this.intervalTextBox.TabIndex = 2;
-            // 
+            //
             // tagsTextBox
-            // 
+            //
+            this.tagsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tagsTextBox.Location = new System.Drawing.Point(84, 214);
             this.tagsTextBox.Name = "tagsTextBox";
             this.tagsTextBox.Size = new System.Drawing.Size(472, 22);
             this.tagsTextBox.TabIndex = 7;
-            // 
+            //
             // fillTypeComboBox
-            // 
+            //
+            this.fillTypeComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.fillTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.fillTypeComboBox.FormattingEnabled = true;
             this.fillTypeComboBox.Location = new System.Drawing.Point(376, 98);
