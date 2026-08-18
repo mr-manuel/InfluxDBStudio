@@ -69,7 +69,7 @@
             // usernameValue
             // 
             this.usernameValue.AutoSize = true;
-            this.usernameValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usernameValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameValue.Location = new System.Drawing.Point(76, 17);
             this.usernameValue.Name = "usernameValue";
             this.usernameValue.Size = new System.Drawing.Size(11, 13);

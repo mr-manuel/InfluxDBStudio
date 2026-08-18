@@ -56,7 +56,7 @@
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameLabel.Location = new System.Drawing.Point(12, 16);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(69, 13);
@@ -66,7 +66,7 @@
             // durationLabel
             // 
             this.durationLabel.AutoSize = true;
-            this.durationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.durationLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.durationLabel.Location = new System.Drawing.Point(12, 46);
             this.durationLabel.Name = "durationLabel";
             this.durationLabel.Size = new System.Drawing.Size(50, 13);
@@ -83,7 +83,7 @@
             // replicationLabel
             // 
             this.replicationLabel.AutoSize = true;
-            this.replicationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.replicationLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.replicationLabel.Location = new System.Drawing.Point(12, 76);
             this.replicationLabel.Name = "replicationLabel";
             this.replicationLabel.Size = new System.Drawing.Size(63, 13);
@@ -115,7 +115,7 @@
             // defaultLabel
             // 
             this.defaultLabel.AutoSize = true;
-            this.defaultLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.defaultLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.defaultLabel.Location = new System.Drawing.Point(12, 106);
             this.defaultLabel.Name = "defaultLabel";
             this.defaultLabel.Size = new System.Drawing.Size(44, 13);

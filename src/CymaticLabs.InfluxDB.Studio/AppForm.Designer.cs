@@ -74,12 +74,10 @@
             this.refreshButton = new System.Windows.Forms.ToolStripButton();
             this.newQueryButton = new System.Windows.Forms.ToolStripButton();
             this.runQueryButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.createDatabaseButton = new System.Windows.Forms.ToolStripButton();
             this.continuousQueryButton = new System.Windows.Forms.ToolStripButton();
             this.backFillButton = new System.Windows.Forms.ToolStripButton();
             this.dropDatabaseButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tagKeysButton = new System.Windows.Forms.ToolStripButton();
             this.tagValuesButton = new System.Windows.Forms.ToolStripButton();
             this.fieldKeysButton = new System.Windows.Forms.ToolStripButton();
@@ -365,40 +363,41 @@
             //
             // imageList
             //
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            // Built from Properties.Resources (same refreshed icon set as the toolbar/menus)
+            // instead of a designer-serialized ImageStream, so tree node icons stay consistent
+            // with the rest of the chrome without a separate legacy embedded-binary blob.
             this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "Loading");
-            this.imageList.Images.SetKeyName(1, "Connection");
-            this.imageList.Images.SetKeyName(2, "Database");
-            this.imageList.Images.SetKeyName(3, "Measurement");
+            this.imageList.Images.Add("Loading", global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Loading);
+            this.imageList.Images.Add("Connection", global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Connection);
+            this.imageList.Images.Add("Database", global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Database);
+            this.imageList.Images.Add("Measurement", global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Measurement);
             //
             // toolStrip
             //
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.manageConnectionsButton,
             this.disconnectButton,
-            this.toolStripSeparator4,
-            this.showUsersButton,
-            this.showStatsButton,
-            this.showDiagnosticsButton,
-            this.showQueriesButton,
-            this.toolStripSeparator1,
             this.refreshButton,
             this.newQueryButton,
             this.runQueryButton,
-            this.toolStripSeparator2,
+            this.toolStripSeparator4,
+            this.showQueriesButton,
+            this.showUsersButton,
+            this.showStatsButton,
+            this.showDiagnosticsButton,
             this.createDatabaseButton,
             this.showPoliciesButton,
             this.continuousQueryButton,
             this.backFillButton,
             this.dropDatabaseButton,
-            this.toolStripSeparator3,
+            this.toolStripSeparator1,
             this.tagKeysButton,
             this.tagValuesButton,
             this.fieldKeysButton,
             this.showSeriesButton,
             this.dropSeriesButton,
             this.dropMeasurementButton});
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Location = new System.Drawing.Point(0, 24);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(800, 25);
@@ -517,11 +516,6 @@
             this.runQueryButton.ToolTipText = "Run Query (F5)";
             this.runQueryButton.Click += new System.EventHandler(this.runQueryButton_Click);
             //
-            // toolStripSeparator2
-            //
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            //
             // createDatabaseButton
             //
             this.createDatabaseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -563,11 +557,6 @@
             this.dropDatabaseButton.Text = "dropDatabaseButton";
             this.dropDatabaseButton.ToolTipText = "Drop Database";
             this.dropDatabaseButton.Click += new System.EventHandler(this.dropDatabaseButton_Click);
-            //
-            // toolStripSeparator3
-            //
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             //
             // tagKeysButton
             //
@@ -670,6 +659,7 @@
             //
             // connectionsTreeView
             //
+            this.connectionsTreeView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.connectionsTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.connectionsTreeView.FullRowSelect = true;
             this.connectionsTreeView.HideSelection = false;
@@ -1040,10 +1030,8 @@
         private System.Windows.Forms.ToolStripButton disconnectButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton runQueryButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton newQueryButton;
         private System.Windows.Forms.ToolStripButton dropDatabaseButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton showSeriesButton;
         private System.Windows.Forms.ToolStripButton dropSeriesButton;
         private System.Windows.Forms.ToolStripButton dropMeasurementButton;

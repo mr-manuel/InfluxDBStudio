@@ -7,10 +7,81 @@ using ScintillaNET;
 namespace CymaticLabs.InfluxDB.Studio
 {
     /// <summary>
-    /// Extends WinForms' built-in dark mode to controls it doesn't reach on its own: the
-    /// Scintilla-based SQL editors, and ListView's native grid lines. Also makes a theme change
-    /// take effect live, without recreating the main window.
+    /// Flat, modern rendering for every MenuStrip/ToolStrip/StatusStrip/ContextMenuStrip in the
+    /// app (wired once via <see cref="ToolStripManager.Renderer"/> in Program.cs). Replaces the
+    /// default <see cref="ToolStripProfessionalRenderer"/>'s gradients/bevels with flat fills,
+    /// while still deriving every color from <see cref="SystemColors"/> - like the rest of
+    /// AppTheme, this keeps it correct in light, dark and system color modes without any
+    /// mode-specific branching here.
     /// </summary>
+    internal sealed class AppToolStripRenderer : ToolStripProfessionalRenderer
+    {
+        public AppToolStripRenderer() : base(new AppToolStripColorTable())
+        {
+            RoundedEdges = false;
+        }
+    }
+
+    file sealed class AppToolStripColorTable : ProfessionalColorTable
+    {
+        public override Color ToolStripGradientBegin => SystemColors.Control;
+        public override Color ToolStripGradientMiddle => SystemColors.Control;
+        public override Color ToolStripGradientEnd => SystemColors.Control;
+
+        public override Color MenuStripGradientBegin => SystemColors.Control;
+        public override Color MenuStripGradientEnd => SystemColors.Control;
+
+        public override Color ImageMarginGradientBegin => SystemColors.Control;
+        public override Color ImageMarginGradientMiddle => SystemColors.Control;
+        public override Color ImageMarginGradientEnd => SystemColors.Control;
+
+        public override Color ToolStripContentPanelGradientBegin => SystemColors.Control;
+        public override Color ToolStripContentPanelGradientEnd => SystemColors.Control;
+
+        public override Color ToolStripPanelGradientBegin => SystemColors.Control;
+        public override Color ToolStripPanelGradientEnd => SystemColors.Control;
+
+        public override Color OverflowButtonGradientBegin => SystemColors.Control;
+        public override Color OverflowButtonGradientMiddle => SystemColors.Control;
+        public override Color OverflowButtonGradientEnd => SystemColors.Control;
+
+        public override Color ButtonSelectedGradientBegin => SystemColors.ControlLight;
+        public override Color ButtonSelectedGradientMiddle => SystemColors.ControlLight;
+        public override Color ButtonSelectedGradientEnd => SystemColors.ControlLight;
+        public override Color ButtonSelectedHighlight => SystemColors.ControlLight;
+        public override Color ButtonSelectedHighlightBorder => SystemColors.ControlDark;
+
+        public override Color ButtonPressedGradientBegin => SystemColors.ControlDark;
+        public override Color ButtonPressedGradientMiddle => SystemColors.ControlDark;
+        public override Color ButtonPressedGradientEnd => SystemColors.ControlDark;
+        public override Color ButtonPressedHighlight => SystemColors.ControlDark;
+        public override Color ButtonPressedHighlightBorder => SystemColors.ControlDark;
+
+        public override Color ButtonCheckedGradientBegin => SystemColors.ControlLight;
+        public override Color ButtonCheckedGradientMiddle => SystemColors.ControlLight;
+        public override Color ButtonCheckedGradientEnd => SystemColors.ControlLight;
+        public override Color ButtonCheckedHighlight => SystemColors.ControlLight;
+        public override Color ButtonCheckedHighlightBorder => SystemColors.ControlDark;
+
+        public override Color MenuItemSelected => SystemColors.ControlLight;
+        public override Color MenuItemSelectedGradientBegin => SystemColors.ControlLight;
+        public override Color MenuItemSelectedGradientEnd => SystemColors.ControlLight;
+        public override Color MenuItemPressedGradientBegin => SystemColors.ControlDark;
+        public override Color MenuItemPressedGradientEnd => SystemColors.ControlDark;
+        public override Color MenuItemBorder => SystemColors.ControlDark;
+        public override Color MenuBorder => SystemColors.ControlDark;
+
+        public override Color SeparatorDark => SystemColors.ControlDark;
+        public override Color SeparatorLight => SystemColors.Control;
+
+        public override Color ToolStripBorder => SystemColors.ControlDark;
+        public override Color GripDark => SystemColors.ControlDark;
+        public override Color GripLight => SystemColors.Control;
+
+        public override Color StatusStripGradientBegin => SystemColors.Control;
+        public override Color StatusStripGradientEnd => SystemColors.Control;
+    }
+
     internal static class AppTheme
     {
         [DllImport("dwmapi.dll")]
@@ -119,19 +190,49 @@ namespace CymaticLabs.InfluxDB.Studio
         }
 
         /// <summary>
-        /// Replaces a <see cref="ListView"/>'s native <see cref="ListView.GridLines"/> with
-        /// manually-drawn ones. GridLines paints with a fixed native color that WinForms' dark
-        /// mode does not touch, so it stays a harsh light gray and dominates a dark background
-        /// regardless of theme. Owner-draws the list (falling back to default painting for
-        /// everything else) so the grid lines can use a theme-aware, subdued color instead.
+        /// Replaces a <see cref="ListView"/>'s native <see cref="ListView.GridLines"/> and column
+        /// header painting with manually-drawn versions. GridLines paints with a fixed native
+        /// color that WinForms' dark mode does not touch, so it stays a harsh light gray and
+        /// dominates a dark background regardless of theme. The column header is worse: it's a
+        /// distinct native child window (SysHeader32) that WinForms' dark mode support does not
+        /// reach at all, so it keeps painting black text on a light background even once the rest
+        /// of the list has gone dark - unreadable. <see cref="SetWindowTheme"/> with Explorer's
+        /// "DarkMode_ItemsView" pseudo-theme (the usual trick for this) does not reliably recolor
+        /// the header's text on every Windows build, so instead the header is owner-drawn from
+        /// scratch here with theme-aware colors, the same approach already used for the grid
+        /// lines and for everything else <see cref="RefreshTree"/> just repaints.
         /// </summary>
         public static void ApplyListViewGridTheme(ListView listView)
         {
             listView.GridLines = false;
             listView.OwnerDraw = true;
-            listView.DrawColumnHeader += (s, e) => e.DrawDefault = true;
             listView.DrawItem += (s, e) => e.DrawDefault = true;
             listView.DrawSubItem += (s, e) => e.DrawDefault = true;
+
+            listView.DrawColumnHeader += (s, e) =>
+            {
+                using (var backBrush = new SolidBrush(SystemColors.Control))
+                {
+                    e.Graphics.FillRectangle(backBrush, e.Bounds);
+                }
+
+                using (var pen = new Pen(SystemColors.ControlDark))
+                {
+                    e.Graphics.DrawLine(pen, e.Bounds.Left, e.Bounds.Bottom - 1, e.Bounds.Right, e.Bounds.Bottom - 1);
+                    e.Graphics.DrawLine(pen, e.Bounds.Right - 1, e.Bounds.Top, e.Bounds.Right - 1, e.Bounds.Bottom);
+                }
+
+                var textFlags = TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis | TextFormatFlags.NoPrefix;
+                textFlags |= e.Header.TextAlign switch
+                {
+                    HorizontalAlignment.Center => TextFormatFlags.HorizontalCenter,
+                    HorizontalAlignment.Right => TextFormatFlags.Right,
+                    _ => TextFormatFlags.Left,
+                };
+
+                var textBounds = Rectangle.Inflate(e.Bounds, -4, 0);
+                TextRenderer.DrawText(e.Graphics, e.Header.Text, e.Font, textBounds, SystemColors.ControlText, textFlags);
+            };
 
             listView.Paint += (s, e) =>
             {

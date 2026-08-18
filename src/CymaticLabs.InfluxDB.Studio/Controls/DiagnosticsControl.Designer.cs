@@ -74,7 +74,7 @@
             this.systemGroupBox.Controls.Add(this.startedLabel);
             this.systemGroupBox.Controls.Add(this.currentTimeLabel);
             this.systemGroupBox.Controls.Add(this.pidLabel);
-            this.systemGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.systemGroupBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.systemGroupBox.Location = new System.Drawing.Point(3, 11);
             this.systemGroupBox.Name = "systemGroupBox";
             this.systemGroupBox.Size = new System.Drawing.Size(665, 125);
@@ -85,7 +85,7 @@
             // uptimeValue
             // 
             this.uptimeValue.AutoSize = true;
-            this.uptimeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uptimeValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uptimeValue.Location = new System.Drawing.Point(103, 97);
             this.uptimeValue.Name = "uptimeValue";
             this.uptimeValue.Size = new System.Drawing.Size(10, 13);
@@ -95,7 +95,7 @@
             // startedValue
             // 
             this.startedValue.AutoSize = true;
-            this.startedValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startedValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startedValue.Location = new System.Drawing.Point(103, 74);
             this.startedValue.Name = "startedValue";
             this.startedValue.Size = new System.Drawing.Size(10, 13);
@@ -105,7 +105,7 @@
             // currentTimeValue
             // 
             this.currentTimeValue.AutoSize = true;
-            this.currentTimeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.currentTimeValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.currentTimeValue.Location = new System.Drawing.Point(103, 52);
             this.currentTimeValue.Name = "currentTimeValue";
             this.currentTimeValue.Size = new System.Drawing.Size(10, 13);
@@ -115,7 +115,7 @@
             // pidValue
             // 
             this.pidValue.AutoSize = true;
-            this.pidValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pidValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pidValue.Location = new System.Drawing.Point(103, 30);
             this.pidValue.Name = "pidValue";
             this.pidValue.Size = new System.Drawing.Size(10, 13);
@@ -125,7 +125,7 @@
             // uptimeLabel
             // 
             this.uptimeLabel.AutoSize = true;
-            this.uptimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uptimeLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uptimeLabel.Location = new System.Drawing.Point(14, 97);
             this.uptimeLabel.Name = "uptimeLabel";
             this.uptimeLabel.Size = new System.Drawing.Size(50, 13);
@@ -135,7 +135,7 @@
             // startedLabel
             // 
             this.startedLabel.AutoSize = true;
-            this.startedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startedLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startedLabel.Location = new System.Drawing.Point(14, 74);
             this.startedLabel.Name = "startedLabel";
             this.startedLabel.Size = new System.Drawing.Size(52, 13);
@@ -145,7 +145,7 @@
             // currentTimeLabel
             // 
             this.currentTimeLabel.AutoSize = true;
-            this.currentTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.currentTimeLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.currentTimeLabel.Location = new System.Drawing.Point(14, 52);
             this.currentTimeLabel.Name = "currentTimeLabel";
             this.currentTimeLabel.Size = new System.Drawing.Size(83, 13);
@@ -155,7 +155,7 @@
             // pidLabel
             // 
             this.pidLabel.AutoSize = true;
-            this.pidLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pidLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pidLabel.Location = new System.Drawing.Point(14, 30);
             this.pidLabel.Name = "pidLabel";
             this.pidLabel.Size = new System.Drawing.Size(32, 13);
@@ -172,7 +172,7 @@
             this.buildGroupBox.Controls.Add(this.buildVersionLabel);
             this.buildGroupBox.Controls.Add(this.commitLabel);
             this.buildGroupBox.Controls.Add(this.branchLabel);
-            this.buildGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buildGroupBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buildGroupBox.Location = new System.Drawing.Point(3, 142);
             this.buildGroupBox.Name = "buildGroupBox";
             this.buildGroupBox.Size = new System.Drawing.Size(665, 104);
@@ -183,7 +183,7 @@
             // buildVersionValue
             // 
             this.buildVersionValue.AutoSize = true;
-            this.buildVersionValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buildVersionValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buildVersionValue.Location = new System.Drawing.Point(103, 74);
             this.buildVersionValue.Name = "buildVersionValue";
             this.buildVersionValue.Size = new System.Drawing.Size(10, 13);
@@ -193,7 +193,7 @@
             // commitValue
             // 
             this.commitValue.AutoSize = true;
-            this.commitValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.commitValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.commitValue.Location = new System.Drawing.Point(103, 52);
             this.commitValue.Name = "commitValue";
             this.commitValue.Size = new System.Drawing.Size(10, 13);
@@ -203,7 +203,7 @@
             // branchValue
             // 
             this.branchValue.AutoSize = true;
-            this.branchValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.branchValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.branchValue.Location = new System.Drawing.Point(103, 30);
             this.branchValue.Name = "branchValue";
             this.branchValue.Size = new System.Drawing.Size(10, 13);
@@ -213,7 +213,7 @@
             // buildVersionLabel
             // 
             this.buildVersionLabel.AutoSize = true;
-            this.buildVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buildVersionLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buildVersionLabel.Location = new System.Drawing.Point(14, 74);
             this.buildVersionLabel.Name = "buildVersionLabel";
             this.buildVersionLabel.Size = new System.Drawing.Size(53, 13);
@@ -223,7 +223,7 @@
             // commitLabel
             // 
             this.commitLabel.AutoSize = true;
-            this.commitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.commitLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.commitLabel.Location = new System.Drawing.Point(14, 52);
             this.commitLabel.Name = "commitLabel";
             this.commitLabel.Size = new System.Drawing.Size(51, 13);
@@ -233,7 +233,7 @@
             // branchLabel
             // 
             this.branchLabel.AutoSize = true;
-            this.branchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.branchLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.branchLabel.Location = new System.Drawing.Point(14, 30);
             this.branchLabel.Name = "branchLabel";
             this.branchLabel.Size = new System.Drawing.Size(51, 13);
@@ -252,7 +252,7 @@
             this.runetimeGroupBox.Controls.Add(this.goOsLabel);
             this.runetimeGroupBox.Controls.Add(this.goMaxProcsLabel);
             this.runetimeGroupBox.Controls.Add(this.goArchLabel);
-            this.runetimeGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.runetimeGroupBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.runetimeGroupBox.Location = new System.Drawing.Point(3, 252);
             this.runetimeGroupBox.Name = "runetimeGroupBox";
             this.runetimeGroupBox.Size = new System.Drawing.Size(665, 125);
@@ -263,7 +263,7 @@
             // goVersionValue
             // 
             this.goVersionValue.AutoSize = true;
-            this.goVersionValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goVersionValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.goVersionValue.Location = new System.Drawing.Point(103, 97);
             this.goVersionValue.Name = "goVersionValue";
             this.goVersionValue.Size = new System.Drawing.Size(10, 13);
@@ -273,7 +273,7 @@
             // goOsValue
             // 
             this.goOsValue.AutoSize = true;
-            this.goOsValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goOsValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.goOsValue.Location = new System.Drawing.Point(103, 74);
             this.goOsValue.Name = "goOsValue";
             this.goOsValue.Size = new System.Drawing.Size(10, 13);
@@ -283,7 +283,7 @@
             // goMaxProcsValue
             // 
             this.goMaxProcsValue.AutoSize = true;
-            this.goMaxProcsValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goMaxProcsValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.goMaxProcsValue.Location = new System.Drawing.Point(103, 52);
             this.goMaxProcsValue.Name = "goMaxProcsValue";
             this.goMaxProcsValue.Size = new System.Drawing.Size(10, 13);
@@ -293,7 +293,7 @@
             // goArchValue
             // 
             this.goArchValue.AutoSize = true;
-            this.goArchValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goArchValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.goArchValue.Location = new System.Drawing.Point(103, 30);
             this.goArchValue.Name = "goArchValue";
             this.goArchValue.Size = new System.Drawing.Size(10, 13);
@@ -303,7 +303,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(14, 97);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 13);
@@ -313,7 +313,7 @@
             // goOsLabel
             // 
             this.goOsLabel.AutoSize = true;
-            this.goOsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goOsLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.goOsLabel.Location = new System.Drawing.Point(14, 74);
             this.goOsLabel.Name = "goOsLabel";
             this.goOsLabel.Size = new System.Drawing.Size(28, 13);
@@ -323,7 +323,7 @@
             // goMaxProcsLabel
             // 
             this.goMaxProcsLabel.AutoSize = true;
-            this.goMaxProcsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goMaxProcsLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.goMaxProcsLabel.Location = new System.Drawing.Point(14, 52);
             this.goMaxProcsLabel.Name = "goMaxProcsLabel";
             this.goMaxProcsLabel.Size = new System.Drawing.Size(70, 13);
@@ -333,7 +333,7 @@
             // goArchLabel
             // 
             this.goArchLabel.AutoSize = true;
-            this.goArchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goArchLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.goArchLabel.Location = new System.Drawing.Point(14, 30);
             this.goArchLabel.Name = "goArchLabel";
             this.goArchLabel.Size = new System.Drawing.Size(80, 13);
@@ -346,7 +346,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.networkGroupBox.Controls.Add(this.hostnameValue);
             this.networkGroupBox.Controls.Add(this.hostnameLabel);
-            this.networkGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.networkGroupBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.networkGroupBox.Location = new System.Drawing.Point(3, 383);
             this.networkGroupBox.Name = "networkGroupBox";
             this.networkGroupBox.Size = new System.Drawing.Size(665, 62);
@@ -357,7 +357,7 @@
             // hostnameValue
             // 
             this.hostnameValue.AutoSize = true;
-            this.hostnameValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hostnameValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hostnameValue.Location = new System.Drawing.Point(103, 30);
             this.hostnameValue.Name = "hostnameValue";
             this.hostnameValue.Size = new System.Drawing.Size(10, 13);
@@ -367,7 +367,7 @@
             // hostnameLabel
             // 
             this.hostnameLabel.AutoSize = true;
-            this.hostnameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hostnameLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hostnameLabel.Location = new System.Drawing.Point(14, 30);
             this.hostnameLabel.Name = "hostnameLabel";
             this.hostnameLabel.Size = new System.Drawing.Size(67, 13);

@@ -1728,6 +1728,32 @@ namespace CymaticLabs.InfluxDB.Studio
             // Update run query based on whether or not a request control is currently in focus
             runQueryButton.Enabled = canRunQeury;
 
+            // Contextual toolbar: hide (rather than just disable) the buttons that only ever
+            // apply to one tree-node type, so the bar doesn't stay cluttered with ~20 buttons
+            // where most sit disabled at any given time. The always-relevant buttons (manage
+            // connections/disconnect/refresh/new query/run query) stay visible regardless.
+            showQueriesButton.Visible = showQueriesButton.Enabled;
+            showPoliciesButton.Visible = showPoliciesButton.Enabled;
+            showUsersButton.Visible = showUsersButton.Enabled;
+            showStatsButton.Visible = showStatsButton.Enabled;
+            showDiagnosticsButton.Visible = showDiagnosticsButton.Enabled;
+            createDatabaseButton.Visible = createDatabaseButton.Enabled;
+            continuousQueryButton.Visible = continuousQueryButton.Enabled;
+            backFillButton.Visible = backFillButton.Enabled;
+            // Visible for the whole Database group even for "_internal" - only Enabled is
+            // guarded against it, so the button stays present-but-disabled rather than vanishing.
+            dropDatabaseButton.Visible = type == InfluxDbNodeTypes.Database;
+            tagKeysButton.Visible = tagKeysButton.Enabled;
+            tagValuesButton.Visible = tagValuesButton.Enabled;
+            fieldKeysButton.Visible = fieldKeysButton.Enabled;
+            showSeriesButton.Visible = showSeriesButton.Enabled;
+            dropSeriesButton.Visible = dropSeriesButton.Enabled;
+            dropMeasurementButton.Visible = dropMeasurementButton.Enabled;
+
+            // Collapse the group separators too, so an empty group doesn't leave a dangling mark
+            toolStripSeparator4.Visible = type == InfluxDbNodeTypes.Connection || type == InfluxDbNodeTypes.Database;
+            toolStripSeparator1.Visible = type == InfluxDbNodeTypes.Measurement;
+
             #endregion Tool Strip
 
             #region Context Menus

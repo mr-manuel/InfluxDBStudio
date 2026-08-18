@@ -111,7 +111,7 @@
             this.groupBox.Controls.Add(this.resampleEveryLabel);
             this.groupBox.Controls.Add(this.intervalLabel);
             this.groupBox.Controls.Add(this.nameLabel);
-            this.groupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox.Location = new System.Drawing.Point(12, 12);
             this.groupBox.Name = "groupBox";
             this.groupBox.Size = new System.Drawing.Size(595, 211);
@@ -140,7 +140,7 @@
             // 
             this.resampleForLabel.AutoSize = true;
             this.resampleForLabel.Enabled = false;
-            this.resampleForLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resampleForLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resampleForLabel.Location = new System.Drawing.Point(421, 174);
             this.resampleForLabel.Name = "resampleForLabel";
             this.resampleForLabel.Size = new System.Drawing.Size(25, 13);
@@ -195,7 +195,7 @@
             // resampleCheckBox
             // 
             this.resampleCheckBox.AutoSize = true;
-            this.resampleCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resampleCheckBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resampleCheckBox.Location = new System.Drawing.Point(84, 173);
             this.resampleCheckBox.Name = "resampleCheckBox";
             this.resampleCheckBox.Size = new System.Drawing.Size(73, 17);
@@ -215,7 +215,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(14, 140);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 13);
@@ -225,7 +225,7 @@
             // destinationLabel
             // 
             this.destinationLabel.AutoSize = true;
-            this.destinationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.destinationLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.destinationLabel.Location = new System.Drawing.Point(14, 66);
             this.destinationLabel.Name = "destinationLabel";
             this.destinationLabel.Size = new System.Drawing.Size(63, 13);
@@ -243,7 +243,7 @@
             // fillTypeLabel
             // 
             this.fillTypeLabel.AutoSize = true;
-            this.fillTypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fillTypeLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fillTypeLabel.Location = new System.Drawing.Point(311, 103);
             this.fillTypeLabel.Name = "fillTypeLabel";
             this.fillTypeLabel.Size = new System.Drawing.Size(49, 13);
@@ -253,7 +253,7 @@
             // sourceLabel
             // 
             this.sourceLabel.AutoSize = true;
-            this.sourceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sourceLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sourceLabel.Location = new System.Drawing.Point(311, 66);
             this.sourceLabel.Name = "sourceLabel";
             this.sourceLabel.Size = new System.Drawing.Size(44, 13);
@@ -301,7 +301,7 @@
             // databaseValue
             // 
             this.databaseValue.AutoSize = true;
-            this.databaseValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.databaseValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.databaseValue.Location = new System.Drawing.Point(373, 32);
             this.databaseValue.Name = "databaseValue";
             this.databaseValue.Size = new System.Drawing.Size(11, 13);
@@ -311,7 +311,7 @@
             // databaseLabel
             // 
             this.databaseLabel.AutoSize = true;
-            this.databaseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.databaseLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.databaseLabel.Location = new System.Drawing.Point(311, 32);
             this.databaseLabel.Name = "databaseLabel";
             this.databaseLabel.Size = new System.Drawing.Size(56, 13);
@@ -322,7 +322,7 @@
             // 
             this.resampleEveryLabel.AutoSize = true;
             this.resampleEveryLabel.Enabled = false;
-            this.resampleEveryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resampleEveryLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resampleEveryLabel.Location = new System.Drawing.Point(224, 174);
             this.resampleEveryLabel.Name = "resampleEveryLabel";
             this.resampleEveryLabel.Size = new System.Drawing.Size(37, 13);
@@ -332,7 +332,7 @@
             // intervalLabel
             // 
             this.intervalLabel.AutoSize = true;
-            this.intervalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.intervalLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.intervalLabel.Location = new System.Drawing.Point(14, 103);
             this.intervalLabel.Name = "intervalLabel";
             this.intervalLabel.Size = new System.Drawing.Size(45, 13);
@@ -342,7 +342,7 @@
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameLabel.Location = new System.Drawing.Point(14, 32);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(56, 13);

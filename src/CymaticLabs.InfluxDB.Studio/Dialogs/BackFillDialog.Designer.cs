@@ -134,7 +134,7 @@
             this.groupBox.Controls.Add(this.databaseValue);
             this.groupBox.Controls.Add(this.databaseLabel);
             this.groupBox.Controls.Add(this.intervalLabel);
-            this.groupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox.Location = new System.Drawing.Point(12, 12);
             this.groupBox.Name = "groupBox";
             this.groupBox.Size = new System.Drawing.Size(595, 262);
@@ -163,7 +163,7 @@
             // toDateTimePicker
             // 
             this.toDateTimePicker.CustomFormat = "d/MM/yyyy @ hh:mm:ss tt";
-            this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toDateTimePicker.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.toDateTimePicker.Location = new System.Drawing.Point(376, 137);
             this.toDateTimePicker.Name = "toDateTimePicker";
@@ -173,7 +173,7 @@
             // fromDateTimePicker
             // 
             this.fromDateTimePicker.CustomFormat = "d/MM/yyyy @ hh:mm:ss tt";
-            this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fromDateTimePicker.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.fromDateTimePicker.Location = new System.Drawing.Point(84, 137);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
@@ -227,7 +227,7 @@
             // filtersLabel
             // 
             this.filtersLabel.AutoSize = true;
-            this.filtersLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filtersLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filtersLabel.Location = new System.Drawing.Point(14, 180);
             this.filtersLabel.Name = "filtersLabel";
             this.filtersLabel.Size = new System.Drawing.Size(37, 13);
@@ -237,7 +237,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(14, 219);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 13);
@@ -247,7 +247,7 @@
             // fromTimeLabel
             // 
             this.fromTimeLabel.AutoSize = true;
-            this.fromTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fromTimeLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fromTimeLabel.Location = new System.Drawing.Point(14, 143);
             this.fromTimeLabel.Name = "fromTimeLabel";
             this.fromTimeLabel.Size = new System.Drawing.Size(59, 13);
@@ -257,7 +257,7 @@
             // destinationLabel
             // 
             this.destinationLabel.AutoSize = true;
-            this.destinationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.destinationLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.destinationLabel.Location = new System.Drawing.Point(14, 66);
             this.destinationLabel.Name = "destinationLabel";
             this.destinationLabel.Size = new System.Drawing.Size(63, 13);
@@ -275,7 +275,7 @@
             // toTimeLabel
             // 
             this.toTimeLabel.AutoSize = true;
-            this.toTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toTimeLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toTimeLabel.Location = new System.Drawing.Point(311, 143);
             this.toTimeLabel.Name = "toTimeLabel";
             this.toTimeLabel.Size = new System.Drawing.Size(49, 13);
@@ -285,7 +285,7 @@
             // fillTypeLabel
             // 
             this.fillTypeLabel.AutoSize = true;
-            this.fillTypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fillTypeLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fillTypeLabel.Location = new System.Drawing.Point(311, 103);
             this.fillTypeLabel.Name = "fillTypeLabel";
             this.fillTypeLabel.Size = new System.Drawing.Size(49, 13);
@@ -295,7 +295,7 @@
             // sourceLabel
             // 
             this.sourceLabel.AutoSize = true;
-            this.sourceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sourceLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sourceLabel.Location = new System.Drawing.Point(311, 66);
             this.sourceLabel.Name = "sourceLabel";
             this.sourceLabel.Size = new System.Drawing.Size(44, 13);
@@ -335,7 +335,7 @@
             // databaseValue
             // 
             this.databaseValue.AutoSize = true;
-            this.databaseValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.databaseValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.databaseValue.Location = new System.Drawing.Point(76, 31);
             this.databaseValue.Name = "databaseValue";
             this.databaseValue.Size = new System.Drawing.Size(11, 13);
@@ -345,7 +345,7 @@
             // databaseLabel
             // 
             this.databaseLabel.AutoSize = true;
-            this.databaseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.databaseLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.databaseLabel.Location = new System.Drawing.Point(14, 31);
             this.databaseLabel.Name = "databaseLabel";
             this.databaseLabel.Size = new System.Drawing.Size(56, 13);
@@ -355,7 +355,7 @@
             // intervalLabel
             // 
             this.intervalLabel.AutoSize = true;
-            this.intervalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.intervalLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.intervalLabel.Location = new System.Drawing.Point(14, 103);
             this.intervalLabel.Name = "intervalLabel";
             this.intervalLabel.Size = new System.Drawing.Size(45, 13);
