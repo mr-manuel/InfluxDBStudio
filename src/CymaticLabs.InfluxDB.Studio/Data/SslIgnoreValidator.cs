@@ -28,20 +28,17 @@ namespace CymaticLabs.InfluxDB.Data
         }
 
         /// <summary>
-        /// Creates an <see cref="HttpClient"/> whose handler bypasses certificate
-        /// validation errors when <see cref="AllowUntrusted"/> is enabled.
+        /// Creates an <see cref="HttpClient"/> whose handler consults the current
+        /// <see cref="AllowUntrusted"/> value on each certificate validation, so
+        /// runtime toggles of the setting take effect on existing clients.
         /// </summary>
         /// <returns>An <see cref="HttpClient"/> configured for the current setting.</returns>
         public static HttpClient CreateHttpClient()
         {
             var handler = new HttpClientHandler();
-
-            if (allowUntrusted)
-            {
-                handler.ServerCertificateCustomValidationCallback =
-                    (HttpRequestMessage message, X509Certificate2 certificate,
-                     X509Chain chain, System.Net.Security.SslPolicyErrors errors) => true;
-            }
+            handler.ServerCertificateCustomValidationCallback =
+                (HttpRequestMessage message, X509Certificate2 certificate,
+                 X509Chain chain, System.Net.Security.SslPolicyErrors errors) => allowUntrusted;
 
             return new HttpClient(handler);
         }
