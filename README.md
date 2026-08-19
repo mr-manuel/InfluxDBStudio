@@ -31,9 +31,9 @@ and [Robomongo](https://robomongo.org/). Under the hood it's powered by [InfluxD
 which is a portable InfluxDB client library for .NET (plus some [Kapacitor](https://www.influxdata.com/time-series-platform/kapacitor/) support).
 InfluxDB Studio presently implements interfaces and workflows for most of the InfluxData.Net API.
 
-**Current build:** version **0.3.0** — upgraded to target **.NET 10** (`net10.0-windows`).
+**Current build:** version **0.3.0** — upgraded to target **.NET 10** (`net10.0-windows`), now with a modernized, dark-mode-capable UI.
 
-> **v0.3.0.0** — This release upgrades InfluxDB Studio from .NET Framework to **.NET 10** (`net10.0-windows`): SDK-style project, `PackageReference` dependencies, Scintilla5.NET, and per-client SSL handling. See [CHANGELOG.md](CHANGELOG.md) for the full list of changes.
+> **v0.3.0.0** — This release upgrades InfluxDB Studio from .NET Framework to **.NET 10** (`net10.0-windows`): SDK-style project, `PackageReference` dependencies, Scintilla5.NET, and per-client SSL handling. It also modernizes the UI with a **System/Light/Dark theme** (`Settings → Theme`), a flat toolbar/tree icon set, and resizable dialogs whose fields now reflow correctly. See [CHANGELOG.md](CHANGELOG.md) for the full list of changes.
 
 The following are planned features that are not yet implemented in the current version:
 
@@ -435,12 +435,16 @@ Application settings can be adjusted in the application **Settings** menu. Setti
 
 ### Settings Overview
 
+  * **Settings → Theme**
+    * **System** - Follows the Windows light/dark app mode setting.
+    * **Light** - Always use the light theme.
+    * **Dark** - Always use the dark theme.
   * **Settings → Time Format**
     * **12 hour** - Time will be displayed in a 12 hour format with AM/PM.
-	* **24 hour** - Time will be displayed in a 24 hour format.
+	  * **24 hour** - Time will be displayed in a 24 hour format.
   * **Settings → Date Format**
     * **Month First** - Dates will be displayed as: mm/dd/yyyy.
-	* **Day First** - Dates will be displayed as: dd/mm/yyyy.
+	  * **Day First** - Dates will be displayed as: dd/mm/yyyy.
   * **Allow Untrusted SSL** - When this setting is turned on, untrusted SSL certificates for InfluxDB servers will be allowed.
 
 ### Exporting Settings

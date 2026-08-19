@@ -12,6 +12,11 @@
 * Replaced the obsolete `ServicePointManager` SSL trust with an `HttpClientHandler.ServerCertificateCustomValidationCallback` applied per client
 * Updated the About dialog links to open with `UseShellExecute`
 
+### Query Results
+* Added `Edit Selected Row` context menu option to edit a result row's field values (and timestamp) and write the change back to InfluxDB
+* Added `Delete Selected Row(s)` context menu option to delete one or more selected result rows from InfluxDB
+* Fixed `InfluxDbApiResponse` throwing on a successful write response, since InfluxDB's `/write` endpoint returns an empty body on success
+
 ### Dependencies
 * Updated InfluxData.Net to 8.0.1
 * Replaced `jacobslusser.ScintillaNET` with `Scintilla5.NET` 7.0.0

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 
 namespace CymaticLabs.InfluxDB.Data
 {
@@ -31,8 +30,9 @@ namespace CymaticLabs.InfluxDB.Data
 
         public InfluxDbApiResponse(string body, HttpStatusCode statusCode, bool success)
         {
-            if (string.IsNullOrWhiteSpace(body)) throw new ArgumentNullException("body");
-            Body = body;
+            // InfluxDB's /write endpoint returns 204 No Content (an empty body) on success,
+            // so an empty body here is not necessarily an error condition.
+            Body = body ?? string.Empty;
             StatusCode = statusCode;
             Success = success;
         }

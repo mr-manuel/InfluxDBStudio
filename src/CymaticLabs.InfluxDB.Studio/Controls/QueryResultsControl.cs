@@ -1,8 +1,10 @@
 ﻿using CymaticLabs.InfluxDB.Data;
+using CymaticLabs.InfluxDB.Studio.Dialogs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,6 +77,18 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
         private void jSONToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             ExportToJson(true);
+        }
+
+        // Edit Selected Row
+        private async void editSelectedRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await EditSelectedRow();
+        }
+
+        // Delete Selected Row(s)
+        private async void deleteSelectedRowsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DeleteSelectedRows();
         }
 
         #endregion Event Handlers
@@ -158,19 +172,8 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
 
                 for (var x = 0; x < r.Count; x++)
                 {
-                    // Get the value
-                    var v = r[x];
-                    string displayCell = null;
-                    if (v is DateTime dateTime)
-                    {
-                        displayCell = dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
-                    }
-                    else
-                    {
-                        displayCell = v?.ToString();
-                    }
                     // Attach the column values as subitems
-                    var li2 = new ListViewItem.ListViewSubItem(li, displayCell);
+                    var li2 = new ListViewItem.ListViewSubItem(li, FormatCellValue(r[x]));
                     li2.Tag = r;
                     li.SubItems.Add(li2);
                 }
@@ -310,6 +313,328 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
             catch (Exception ex)
             {
                 AppForm.DisplayException(ex);
+            }
+        }
+
+        // Deletes the currently selected rows from InfluxDB as individual data points,
+        // identified by their "time" column value (and series tags, if any).
+        async Task DeleteSelectedRows()
+        {
+            try
+            {
+                if (InfluxDbClient == null || string.IsNullOrWhiteSpace(Database))
+                {
+                    MessageBox.Show("No active database connection.", "Delete Row(s)", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (lastResult == null || string.IsNullOrWhiteSpace(lastResult.Name))
+                {
+                    MessageBox.Show("These results are not associated with a single measurement, so rows cannot be deleted.", "Delete Row(s)", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var timeColumnIndex = lastResult.GetColumnIndex("time");
+
+                if (timeColumnIndex < 0)
+                {
+                    MessageBox.Show("These results do not contain a \"time\" column, so rows cannot be identified for deletion.", "Delete Row(s)", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var selectedItems = new List<ListViewItem>();
+                foreach (ListViewItem li in listView.Items)
+                {
+                    if (li.Selected) selectedItems.Add(li);
+                }
+
+                if (selectedItems.Count == 0)
+                {
+                    MessageBox.Show("No rows are selected.", "Delete Row(s)", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Collect the time predicate for each selected row
+                var timePredicates = new List<string>();
+
+                foreach (var li in selectedItems)
+                {
+                    // Column 0 is the "#" label and has no row data attached, so real
+                    // columns start at sub-item index 1
+                    if (li.SubItems.Count <= 1) continue;
+
+                    var row = li.SubItems[1].Tag as IList<object>;
+                    if (row == null || timeColumnIndex >= row.Count) continue;
+
+                    timePredicates.Add("time = " + ToInfluxQlTimeLiteral(row[timeColumnIndex]));
+                }
+
+                if (timePredicates.Count == 0)
+                {
+                    MessageBox.Show("Unable to determine the timestamp for the selected row(s).", "Delete Row(s)", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Confirm delete
+                var confirmMessage = string.Format(
+                    "Delete {0} selected row{1} from measurement \"{2}\"?\n\nThis action cannot be undone.",
+                    timePredicates.Count, timePredicates.Count == 1 ? null : "s", lastResult.Name);
+
+                if (MessageBox.Show(confirmMessage, "Confirm Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                    return;
+
+                // InfluxQL's DELETE WHERE clause only supports AND (no OR), so each row
+                // needs its own DELETE statement rather than one combined "time = a OR
+                // time = b" predicate. They're issued as separate requests (rather than
+                // joined with semicolons into one multi-statement query) because the
+                // underlying InfluxData.Net client assumes a single result per query and
+                // throws when a multi-statement response comes back. Scope each delete to
+                // the exact series the row came from, if the results are for a tagged
+                // series (e.g. from a GROUP BY query).
+                foreach (var timePredicate in timePredicates)
+                {
+                    var where = new StringBuilder(timePredicate);
+
+                    foreach (var tag in lastResult.Tags)
+                    {
+                        where.AppendFormat(" AND \"{0}\" = '{1}'", tag.Key, tag.Value.Replace("'", "\\'"));
+                    }
+
+                    var query = string.Format("DELETE FROM \"{0}\" WHERE {1}", lastResult.Name, where);
+
+                    await InfluxDbClient.QueryAsync(Database, query);
+                }
+
+                // Remove the deleted rows from the UI
+                listView.BeginUpdate();
+                foreach (var li in selectedItems) listView.Items.Remove(li);
+                listView.EndUpdate();
+            }
+            catch (Exception ex)
+            {
+                AppForm.DisplayException(ex);
+            }
+        }
+
+        // Formats a raw "time" column value as an InfluxQL-compatible time literal.
+        static string ToInfluxQlTimeLiteral(object timeValue)
+        {
+            if (timeValue is DateTime dateTime)
+            {
+                return "'" + dateTime.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ", CultureInfo.InvariantCulture) + "'";
+            }
+
+            // Fall back to treating the value as a pre-formatted/numeric timestamp
+            return timeValue?.ToString();
+        }
+
+        // Formats a raw column value for display in the grid/edit dialog.
+        static string FormatCellValue(object value)
+        {
+            if (value is DateTime dateTime) return dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            return value?.ToString();
+        }
+
+        // Edits the single currently selected row by writing an updated point to InfluxDB
+        // with the same measurement/tags/timestamp (which overwrites the existing field
+        // values), unless the timestamp itself was changed, in which case the original
+        // point is deleted after the new one is written successfully so it isn't left behind.
+        async Task EditSelectedRow()
+        {
+            try
+            {
+                if (InfluxDbClient == null || string.IsNullOrWhiteSpace(Database))
+                {
+                    MessageBox.Show("No active database connection.", "Edit Row", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (lastResult == null || string.IsNullOrWhiteSpace(lastResult.Name))
+                {
+                    MessageBox.Show("These results are not associated with a single measurement, so this row cannot be edited.", "Edit Row", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var timeColumnIndex = lastResult.GetColumnIndex("time");
+
+                if (timeColumnIndex < 0)
+                {
+                    MessageBox.Show("These results do not contain a \"time\" column, so this row cannot be identified for editing.", "Edit Row", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var selectedItems = new List<ListViewItem>();
+                foreach (ListViewItem li in listView.Items)
+                {
+                    if (li.Selected) selectedItems.Add(li);
+                }
+
+                if (selectedItems.Count == 0)
+                {
+                    MessageBox.Show("No row is selected.", "Edit Row", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (selectedItems.Count > 1)
+                {
+                    MessageBox.Show("Please select exactly one row to edit.", "Edit Row", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var item = selectedItems[0];
+                if (item.SubItems.Count <= 1) return;
+                var row = item.SubItems[1].Tag as IList<object>;
+                if (row == null) return;
+
+                // Determine which result columns are tags (only relevant for ungrouped
+                // queries, where tag values come back as regular columns) so they're shown
+                // read-only rather than treated as editable fields
+                var tagKeys = new HashSet<string>(StringComparer.Ordinal);
+                try
+                {
+                    var measurementTagKeys = await InfluxDbClient.GetTagKeysAsync(Database, lastResult.Name);
+                    if (measurementTagKeys != null) foreach (var k in measurementTagKeys) tagKeys.Add(k);
+                }
+                catch (Exception)
+                {
+                    // Best effort - if this fails, columns are still shown/edited as fields
+                }
+
+                var displayValues = new List<string>(lastResult.Columns.Count);
+                for (var i = 0; i < lastResult.Columns.Count; i++)
+                {
+                    displayValues.Add(FormatCellValue(i < row.Count ? row[i] : null));
+                }
+
+                using (var dialog = new EditRowDialog())
+                {
+                    dialog.BindToRow(lastResult.Name, lastResult.Tags, lastResult.Columns, displayValues, tagKeys);
+
+                    if (dialog.ShowDialog(FindForm()) != DialogResult.OK) return;
+
+                    // Parse edited values, preserving each column's original .NET type
+                    var editedRow = new List<object>(row.Count);
+
+                    for (var i = 0; i < lastResult.Columns.Count; i++)
+                    {
+                        var columnName = lastResult.Columns[i];
+                        var originalValue = i < row.Count ? row[i] : null;
+                        var text = dialog.GetValueText(columnName);
+                        editedRow.Add(ParseEditedValue(text, originalValue));
+                    }
+
+                    if (!(editedRow[timeColumnIndex] is DateTime newTime))
+                    {
+                        MessageBox.Show("The \"time\" value is invalid.", "Edit Row", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    var originalTime = row[timeColumnIndex] as DateTime?;
+
+                    // Build the tags (unchanged, not editable here) and fields (everything
+                    // except time/tags) to write back
+                    var tags = new Dictionary<string, object>();
+                    foreach (var tag in lastResult.Tags) tags[tag.Key] = tag.Value;
+
+                    var fields = new Dictionary<string, object>();
+
+                    for (var i = 0; i < lastResult.Columns.Count; i++)
+                    {
+                        if (i == timeColumnIndex) continue;
+
+                        var columnName = lastResult.Columns[i];
+
+                        if (tagKeys.Contains(columnName))
+                        {
+                            // Tag column present among the result columns (ungrouped query) -
+                            // keep its original value, tags can't be changed via edit
+                            tags[columnName] = row[i]?.ToString();
+                            continue;
+                        }
+
+                        fields[columnName] = editedRow[i];
+                    }
+
+                    if (fields.Count == 0)
+                    {
+                        MessageBox.Show("There are no editable field values for this row.", "Edit Row", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    var timeChanged = originalTime == null || newTime.ToUniversalTime() != originalTime.Value.ToUniversalTime();
+
+                    var confirmMessage = timeChanged
+                        ? string.Format("Save changes to this row in measurement \"{0}\"?\n\nThe timestamp has changed, so the original data point will be replaced.", lastResult.Name)
+                        : string.Format("Save changes to this row in measurement \"{0}\"?", lastResult.Name);
+
+                    if (MessageBox.Show(confirmMessage, "Confirm Edit", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                        return;
+
+                    // Write the updated point first...
+                    var writeResponse = await InfluxDbClient.WriteAsync(Database, lastResult.Name, tags, fields, newTime.ToUniversalTime());
+
+                    if (!writeResponse.Success)
+                    {
+                        AppForm.DisplayError(writeResponse.Body, "Error Writing Row");
+                        return;
+                    }
+
+                    // ...then remove the original point if its identity changed, so it isn't left behind
+                    if (timeChanged && originalTime != null)
+                    {
+                        var where = new StringBuilder();
+                        where.Append("time = ").Append(ToInfluxQlTimeLiteral(originalTime.Value));
+
+                        foreach (var tag in lastResult.Tags)
+                        {
+                            where.AppendFormat(" AND \"{0}\" = '{1}'", tag.Key, tag.Value.Replace("'", "\\'"));
+                        }
+
+                        var deleteQuery = string.Format("DELETE FROM \"{0}\" WHERE {1}", lastResult.Name, where);
+                        await InfluxDbClient.QueryAsync(Database, deleteQuery);
+                    }
+
+                    // Reflect the changes in the UI and backing data in place
+                    for (var i = 0; i < row.Count && i < editedRow.Count; i++) row[i] = editedRow[i];
+
+                    for (var i = 0; i < lastResult.Columns.Count; i++)
+                    {
+                        var subItemIndex = i + 1; // +1 because SubItems[0] is the "#" label
+                        if (subItemIndex >= item.SubItems.Count) break;
+                        item.SubItems[subItemIndex].Text = FormatCellValue(row[i]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                AppForm.DisplayException(ex);
+            }
+        }
+
+        // Parses a value edited as text back into the same .NET type as the row's original
+        // value for that column, so the type of an existing field doesn't change on write
+        // (InfluxDB rejects writes that would change an existing field's type).
+        static object ParseEditedValue(string text, object originalValue)
+        {
+            if (originalValue == null || originalValue is string) return text;
+
+            var type = originalValue.GetType();
+
+            if (type == typeof(DateTime))
+            {
+                if (DateTime.TryParse(text, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal, out var dt))
+                    return dt;
+
+                throw new FormatException("Invalid time value: \"" + text + "\"");
+            }
+
+            try
+            {
+                return Convert.ChangeType(text, type, CultureInfo.InvariantCulture);
+            }
+            catch (Exception)
+            {
+                throw new FormatException(string.Format("Invalid {0} value: \"{1}\"", type.Name, text));
             }
         }
 
