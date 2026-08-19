@@ -56,6 +56,10 @@
             this.dateFormatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateFormatMonthMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateFormatDayMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dateFormatIsoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timestampToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timestampFormattedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timestampUnixMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allowUntrustedSSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.themeSystemMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -264,6 +268,7 @@
             this.themeToolStripMenuItem,
             this.timeFormatToolStripMenuItem,
             this.dateFormatToolStripMenuItem,
+            this.timestampToolStripMenuItem,
             this.allowUntrustedSSLToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -272,8 +277,8 @@
             // timeFormatToolStripMenuItem
             //
             this.timeFormatToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.timeFormat12HourMenuItem,
-            this.timeFormat24HourMenuItem});
+            this.timeFormat24HourMenuItem,
+            this.timeFormat12HourMenuItem});
             this.timeFormatToolStripMenuItem.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Time;
             this.timeFormatToolStripMenuItem.Name = "timeFormatToolStripMenuItem";
             this.timeFormatToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
@@ -296,6 +301,7 @@
             // dateFormatToolStripMenuItem
             //
             this.dateFormatToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dateFormatIsoMenuItem,
             this.dateFormatMonthMenuItem,
             this.dateFormatDayMenuItem});
             this.dateFormatToolStripMenuItem.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Date;
@@ -316,6 +322,37 @@
             this.dateFormatDayMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dateFormatDayMenuItem.Text = "31/12/2016  (dd/mm/yyyy)";
             this.dateFormatDayMenuItem.Click += new System.EventHandler(this.dateFormatMenuItem_Click);
+            //
+            // dateFormatIsoMenuItem
+            //
+            this.dateFormatIsoMenuItem.Name = "dateFormatIsoMenuItem";
+            this.dateFormatIsoMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dateFormatIsoMenuItem.Text = "2016-12-31  (yyyy-mm-dd)";
+            this.dateFormatIsoMenuItem.Click += new System.EventHandler(this.dateFormatMenuItem_Click);
+            //
+            // timestampToolStripMenuItem
+            //
+            this.timestampToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.timestampFormattedMenuItem,
+            this.timestampUnixMenuItem});
+            this.timestampToolStripMenuItem.Image = global::CymaticLabs.InfluxDB.Studio.Properties.Resources.Time;
+            this.timestampToolStripMenuItem.Name = "timestampToolStripMenuItem";
+            this.timestampToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.timestampToolStripMenuItem.Text = "Timestamp";
+            //
+            // timestampFormattedMenuItem
+            //
+            this.timestampFormattedMenuItem.Name = "timestampFormattedMenuItem";
+            this.timestampFormattedMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.timestampFormattedMenuItem.Text = "Formatted Date/Time";
+            this.timestampFormattedMenuItem.Click += new System.EventHandler(this.timestampDisplayMenuItem_Click);
+            //
+            // timestampUnixMenuItem
+            //
+            this.timestampUnixMenuItem.Name = "timestampUnixMenuItem";
+            this.timestampUnixMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.timestampUnixMenuItem.Text = "Unix Timestamp (ns)";
+            this.timestampUnixMenuItem.Click += new System.EventHandler(this.timestampDisplayMenuItem_Click);
             //
             // allowUntrustedSSLToolStripMenuItem
             //
@@ -1075,6 +1112,10 @@
         private System.Windows.Forms.ToolStripMenuItem dateFormatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateFormatMonthMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateFormatDayMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dateFormatIsoMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem timestampToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem timestampFormattedMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem timestampUnixMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allowUntrustedSSLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem themeSystemMenuItem;

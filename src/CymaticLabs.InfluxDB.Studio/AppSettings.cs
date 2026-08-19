@@ -34,6 +34,23 @@ namespace CymaticLabs.InfluxDB.Studio
         public const string DateFormatMonth = "M/dd/yyyy";
 
         /// <summary>
+        /// Date format string for ISO 8601-style dates.
+        /// </summary>
+        public const string DateFormatIso = "yyyy-MM-dd";
+
+        /// <summary>
+        /// Timestamp display setting that shows the "time" column as a formatted date/time,
+        /// using <see cref="AppSettings.DateFormat"/>/<see cref="AppSettings.TimeFormat"/>.
+        /// </summary>
+        public const string TimestampDisplayFormatted = "Formatted";
+
+        /// <summary>
+        /// Timestamp display setting that shows the "time" column as a raw Unix timestamp
+        /// (nanoseconds since the epoch), matching InfluxDB's native time representation.
+        /// </summary>
+        public const string TimestampDisplayUnix = "Unix";
+
+        /// <summary>
         /// Theme setting that follows the Windows system light/dark setting.
         /// </summary>
         public const string ThemeSystem = "System";
@@ -59,6 +76,9 @@ namespace CymaticLabs.InfluxDB.Studio
 
         // Internal app date format setting
         string dateFormat;
+
+        // Internal app timestamp display setting
+        string timestampDisplay;
 
         #endregion Fields
 
@@ -100,6 +120,25 @@ namespace CymaticLabs.InfluxDB.Studio
                 {
                     dateFormat = value;
                     Properties.Settings.Default.DateFormat = dateFormat;
+                    Properties.Settings.Default.Save(); // update settings file
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the current timestamp display setting (<see cref="TimestampDisplayFormatted"/>
+        /// or <see cref="TimestampDisplayUnix"/>) used for the "time" column in query results.
+        /// </summary>
+        public string TimestampDisplay
+        {
+            get { return timestampDisplay; }
+
+            set
+            {
+                if (timestampDisplay != value)
+                {
+                    timestampDisplay = value;
+                    Properties.Settings.Default.TimestampDisplay = timestampDisplay;
                     Properties.Settings.Default.Save(); // update settings file
                 }
             }
@@ -155,8 +194,9 @@ namespace CymaticLabs.InfluxDB.Studio
         public AppSettings()
         {
             // Initialize default settings
-            timeFormat = TimeFormat12Hour;
-            dateFormat = DateFormatMonth;
+            timeFormat = TimeFormat24Hour;
+            dateFormat = DateFormatIso;
+            timestampDisplay = TimestampDisplayFormatted;
             allowUntrustedSsl = false;
             theme = ThemeSystem;
             Connections = new List<InfluxDbConnection>();
@@ -179,6 +219,7 @@ namespace CymaticLabs.InfluxDB.Studio
         {
             timeFormat = Properties.Settings.Default.TimeFormat;
             dateFormat = Properties.Settings.Default.DateFormat;
+            timestampDisplay = Properties.Settings.Default.TimestampDisplay;
             allowUntrustedSsl = Properties.Settings.Default.AllowUntrustedSsl;
             theme = Properties.Settings.Default.Theme;
             LoadConnections();
@@ -191,6 +232,7 @@ namespace CymaticLabs.InfluxDB.Studio
         {
             Properties.Settings.Default.TimeFormat = TimeFormat;
             Properties.Settings.Default.DateFormat = DateFormat;
+            Properties.Settings.Default.TimestampDisplay = TimestampDisplay;
             Properties.Settings.Default.AllowUntrustedSsl = AllowUntrustedSsl;
             Properties.Settings.Default.Theme = Theme;
             SaveConnections();

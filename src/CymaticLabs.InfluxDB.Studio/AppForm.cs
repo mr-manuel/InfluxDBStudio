@@ -234,16 +234,33 @@ namespace CymaticLabs.InfluxDB.Studio
             Settings.TimeFormat = format;
         }
 
-        // Handles Settings -> Date Format -> month/day-first selection
+        // Handles Settings -> Date Format -> month-first/day-first/ISO selection
         private void dateFormatMenuItem_Click(object sender, EventArgs e)
         {
-            var format = sender == dateFormatDayMenuItem ? AppSettings.DateFormatDay : AppSettings.DateFormatMonth;
+            string format;
+
+            if (sender == dateFormatDayMenuItem) format = AppSettings.DateFormatDay;
+            else if (sender == dateFormatIsoMenuItem) format = AppSettings.DateFormatIso;
+            else format = AppSettings.DateFormatMonth;
 
             // Reflect the selection as a radio-style checkmark, same as Settings -> Theme
             dateFormatMonthMenuItem.Checked = format == AppSettings.DateFormatMonth;
             dateFormatDayMenuItem.Checked = format == AppSettings.DateFormatDay;
+            dateFormatIsoMenuItem.Checked = format == AppSettings.DateFormatIso;
 
             Settings.DateFormat = format;
+        }
+
+        // Handles Settings -> Timestamp -> Formatted/Unix selection
+        private void timestampDisplayMenuItem_Click(object sender, EventArgs e)
+        {
+            var display = sender == timestampUnixMenuItem ? AppSettings.TimestampDisplayUnix : AppSettings.TimestampDisplayFormatted;
+
+            // Reflect the selection as a radio-style checkmark, same as Settings -> Theme
+            timestampFormattedMenuItem.Checked = display == AppSettings.TimestampDisplayFormatted;
+            timestampUnixMenuItem.Checked = display == AppSettings.TimestampDisplayUnix;
+
+            Settings.TimestampDisplay = display;
         }
 
         // Handles Settings -> Theme -> System/Light/Dark selection
@@ -1631,6 +1648,11 @@ namespace CymaticLabs.InfluxDB.Studio
             // Set date format, reflected as a radio-style checkmark, same as Settings -> Theme
             dateFormatMonthMenuItem.Checked = Settings.DateFormat == AppSettings.DateFormatMonth;
             dateFormatDayMenuItem.Checked = Settings.DateFormat == AppSettings.DateFormatDay;
+            dateFormatIsoMenuItem.Checked = Settings.DateFormat == AppSettings.DateFormatIso;
+
+            // Set timestamp display, reflected as a radio-style checkmark, same as Settings -> Theme
+            timestampFormattedMenuItem.Checked = Settings.TimestampDisplay == AppSettings.TimestampDisplayFormatted;
+            timestampUnixMenuItem.Checked = Settings.TimestampDisplay == AppSettings.TimestampDisplayUnix;
 
             // Apply untrusted SSL
             allowUntrustedSSLToolStripMenuItem.Checked = Settings.AllowUntrustedSsl;

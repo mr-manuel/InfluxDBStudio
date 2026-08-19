@@ -431,8 +431,68 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
         // Formats a raw column value for display in the grid/edit dialog.
         static string FormatCellValue(object value)
         {
-            if (value is DateTime dateTime) return dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
+            if (value is DateTime dateTime)
+            {
+                return AppForm.Settings.TimestampDisplay == AppSettings.TimestampDisplayUnix
+                    ? ToUnixNanosString(dateTime)
+                    : dateTime.ToString(GetDateTimeDisplayFormat(), CultureInfo.InvariantCulture);
+            }
+
             return value?.ToString();
+        }
+
+        // The .NET custom format string for the "time" column, built from the app's
+        // Settings -> Date Format / Time Format menu choices (millisecond precision is
+        // always appended, since those settings don't cover it).
+        static string GetDateTimeDisplayFormat()
+        {
+            var timePart = AppForm.Settings.TimeFormat == AppSettings.TimeFormat24Hour
+                ? "HH:mm:ss.fff"
+                : "hh:mm:ss.fff tt";
+
+            return AppForm.Settings.DateFormat + " " + timePart;
+        }
+
+        // Converts a DateTime to a Unix nanosecond-epoch string, matching InfluxDB's
+        // native time representation (e.g. as seen/typed in raw InfluxQL WHERE clauses).
+        static string ToUnixNanosString(DateTime dateTime)
+        {
+            var ticksSinceEpoch = dateTime.ToUniversalTime().Ticks - DateTime.UnixEpoch.Ticks;
+            return (ticksSinceEpoch * 100).ToString(CultureInfo.InvariantCulture);
+        }
+
+        // Parses a Unix nanosecond-epoch string (as shown/accepted when Settings ->
+        // Timestamp -> Unix Timestamp is active) back into a DateTime.
+        static bool TryParseUnixNanos(string text, out DateTime result)
+        {
+            if (long.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out var nanos))
+            {
+                result = DateTime.UnixEpoch.AddTicks(nanos / 100);
+                return true;
+            }
+
+            result = default;
+            return false;
+        }
+
+        // Parses an edited "time" value, trying whichever representation it's currently
+        // displayed in first (formatted date/time or Unix nanoseconds), then the other
+        // representation, then a generic parse as a last resort - so a value typed in
+        // either style still works regardless of the current Settings -> Timestamp choice.
+        static bool TryParseEditedTime(string text, out DateTime result)
+        {
+            var displayFormat = GetDateTimeDisplayFormat();
+            var preferUnix = AppForm.Settings.TimestampDisplay == AppSettings.TimestampDisplayUnix;
+
+            if (preferUnix && TryParseUnixNanos(text, out result)) return true;
+
+            if (DateTime.TryParseExact(text, displayFormat, CultureInfo.InvariantCulture,
+                DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out result)) return true;
+
+            if (!preferUnix && TryParseUnixNanos(text, out result)) return true;
+
+            return DateTime.TryParse(text, CultureInfo.InvariantCulture,
+                DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out result);
         }
 
         // Edits the single currently selected row by writing an updated point to InfluxDB
@@ -622,8 +682,7 @@ namespace CymaticLabs.InfluxDB.Studio.Controls
 
             if (type == typeof(DateTime))
             {
-                if (DateTime.TryParse(text, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal, out var dt))
-                    return dt;
+                if (TryParseEditedTime(text, out var dt)) return dt;
 
                 throw new FormatException("Invalid time value: \"" + text + "\"");
             }

@@ -16,6 +16,13 @@
 * Added `Edit Selected Row` context menu option to edit a result row's field values (and timestamp) and write the change back to InfluxDB
 * Added `Delete Selected Row(s)` context menu option to delete one or more selected result rows from InfluxDB
 * Fixed `InfluxDbApiResponse` throwing on a successful write response, since InfluxDB's `/write` endpoint returns an empty body on success
+* Fixed deleting multiple selected rows at once failing, since InfluxQL's `DELETE` statement doesn't support `OR` in its `WHERE` clause; each row is now deleted with its own statement
+* Fixed the `time` column in query results and the Edit Row dialog ignoring the Date Format/Time Format settings
+
+### Settings
+* Added `yyyy-MM-dd` date format option
+* Added `Timestamp` setting to show the `time` column as a formatted date/time or as a raw Unix timestamp (nanoseconds)
+* Changed the default time format to 24 Hour and default date format to `yyyy-MM-dd`, and reordered both menus to list the new defaults first
 
 ### Dependencies
 * Updated InfluxData.Net to 8.0.1
