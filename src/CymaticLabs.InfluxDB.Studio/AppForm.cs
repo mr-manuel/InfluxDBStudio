@@ -1927,8 +1927,8 @@ namespace CymaticLabs.InfluxDB.Studio
                 // Clear current children
                 connectionNode.Nodes.Clear();
 
-                // Iterate through returned databases and add their details
-                foreach (var dbName in dbNames)
+                // Iterate through returned databases (alphabetically) and add their details
+                foreach (var dbName in dbNames.OrderBy(n => n, StringComparer.OrdinalIgnoreCase))
                 {
                     // Ignore _internal db
                     //if (dbName == "_internal") continue;
@@ -1962,8 +1962,8 @@ namespace CymaticLabs.InfluxDB.Studio
                 // Clear current children
                 dbNode.Nodes.Clear();
 
-                // Render children
-                foreach (var measurementName in measurementNames)
+                // Render children (alphabetically)
+                foreach (var measurementName in measurementNames.OrderBy(n => n, StringComparer.OrdinalIgnoreCase))
                 {
                     var measurementNode = CreateTreeNode(measurementName, InfluxDbNodeTypes.Measurement);
                     measurementNode.ContextMenuStrip = measurementContextMenu;

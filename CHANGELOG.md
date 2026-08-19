@@ -11,6 +11,7 @@
 ### Program
 * Replaced the obsolete `ServicePointManager` SSL trust with an `HttpClientHandler.ServerCertificateCustomValidationCallback` applied per client
 * Updated the About dialog links to open with `UseShellExecute`
+* Sorted databases and measurements alphabetically in the connections tree
 
 ### Query Results
 * Added `Edit Selected Row` context menu option to edit a result row's field values (and timestamp) and write the change back to InfluxDB
